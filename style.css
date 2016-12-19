@@ -1,4 +1,6 @@
 .dropDown {
+	margin-left: 10px;
+	text-decoration: underline;
 	display: inline;
 }
 

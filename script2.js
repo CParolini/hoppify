@@ -2,7 +2,8 @@ var store = "";
 // Event listener for all button elements
   $("button").on("click", function() {
     // In this case, the "this" keyword refers to the button that was clicked
-         
+  $('.buttonList').empty();
+
     var searchFor = $('.searchTerm').val();
     // Constructing a URL to search cocktail db
     var queryURL = "http://www.thecocktaildb.com/api/json/v1/6526/search.php?s=" + searchFor;
@@ -20,7 +21,7 @@ var store = "";
         // Looping over every result item
         for (var i = 0; i < response.drinks.length; i++) {
 
-        $('.buttonList').append('<h2 class ="dropDown">' +response.drinks[i].strDrink+'</h2>');
+        $('.buttonList').append('<div><img height="42" width="42" src ="' + response.drinks[i].strDrinkThumb + '""><h2 class ="dropDown">' +response.drinks[i].strDrink+'</h2>');
         console.log(response.drinks[i].strDrink);    
            
          }
