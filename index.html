@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<head>
+
+
+</head>
+
+
+<body>
+    <script type="text/javascript">
+        var queryURL = "http://api.brewerydb.com/v2/search/style?q=" + "lager" + "&key=a926a8c5cbc33ef1ce4cdb22b4f5e95f";
+
+        $.ajax({
+                url: queryURL,
+                method: 'GET'
+            })
+            .done(function(response) {
+                    for (var i = 0; i < response.data.length; i++) {
+                        console.log(response[i]);
+                    }
+                })
+    </script>
+
+</body>
