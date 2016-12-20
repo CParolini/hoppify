@@ -5,7 +5,7 @@ $("button").on("click", function() {
 
     var searchFor = $('.searchTerm').val();
     // Constructing a URL to search cocktail db
-    var queryURL = "http://api.brewerydb.com/v2/search/style?q=" + searchFor + "&key=a926a8c5cbc33ef1ce4cdb22b4f5e95f";
+    var queryURL = "http://api.malt.io/v1/public/recipes?slugs=" + searchFor;
 
     // Performing our AJAX GET request
     $.ajax({
