@@ -1,10 +1,10 @@
-var store = "";
+  var store = "";
 // Event listener for all button elements
 $("button").on("click", function() {
     // In this case, the "this" keyword refers to the button that was clicked
 
     var searchFor = $('.searchTerm').val();
-    // Constructing a URL to search cocktail db
+    // Constructing a URL to search tapline db
     var queryURL = "http://api.malt.io/v1/public/recipes?slugs=" + searchFor;
 
     // Performing our AJAX GET request
@@ -18,10 +18,10 @@ $("button").on("click", function() {
 
             store = response;
             // Looping over every result item
-            for (var i = 0; i < response.drinks.length; i++) {
+            for (var i = 0; i < response.length; i++) {
 
-                $('.buttonList').append('<h2 class ="dropDown">' + response.drinks[i].strDrink + '</h2>');
-                console.log(response.drinks[i].strDrink);
+                // $('.buttonList').append('<h2 class ="dropDown">' + response.slug[i]  + '</h2>');
+                console.log(response);
 
             }
         });
