@@ -31,47 +31,6 @@ $(".mixMenu").on("click", function() {
         });
 });
 
-
-
-// // Event listener for all button elements
-// $("#cocktail").on("click", function() {
-//     // In this case, the "this" keyword refers to the button that was clicked
-//     $(".drinks").empty();
-//     $(".info").html("<img src='assets/image/drinks.jpg'>")
-
-//     //var searchFor = $('.form-control').val();
-//     // Constructing a URL to search cocktail db
-//     queryURL = "http://www.thecocktaildb.com/api/json/v1/6526/search.php?s=cocktail";
-
-//     // Performing our AJAX GET request
-//     listDrinks();
-// });
-// // Event listener for all button elements
-// $("#fruit").on("click", function() {
-//     // In this case, the "this" keyword refers to the button that was clicked
-//     $(".drinks").empty();
-//     $(".info").html("<img src='assets/image/fruit.jpg'>")
-//         //var searchFor = $('.form-control').val();
-//         // Constructing a URL to search cocktail db
-//     var queryURL = "http://www.thecocktaildb.com/api/json/v1/6526/search.php?s=fruit";
-
-//     // Performing our AJAX GET request
-//     listDrinks();
-// });
-// // Event listener for all button elements
-// $("#search").on("click", function() {
-//     console.log("click");
-//     // In this case, the "this" keyword refers to the button that was clicked
-
-//     var searchFor = $('.form-control').val();
-//     console.log(searchFor);
-//     // Constructing a URL to search cocktail db
-//     var queryURL = "http://www.thecocktaildb.com/api/json/v1/6526/search.php?s=" + searchFor;
-
-//     // Performing our AJAX GET request
-//     listDrinks();
-// });
-
 // Event listener for all button elements
 $("#search").on("click", function() {
     console.log("click");
