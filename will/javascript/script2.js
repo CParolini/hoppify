@@ -31,6 +31,35 @@ $(".mixMenu").on("click", function() {
         });
 });
 
+$(".nonAlcoholic").on("click", function() {
+    // In this case, the "this" keyword refers to the button that was clicked
+    $(".drinks").empty();
+    dropDownDrink = this.outerText;
+    $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
+    
+    // Constructing a URL to search cocktail db
+    queryURL = "http://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic";
+
+    // Performing our AJAX GET request
+    $.ajax({
+            url: queryURL,
+            method: "GET"
+        })
+        // After the data comes back from the API
+        .done(function(response) {
+            // Storing an array of results in the results variable
+
+            store = response;
+            // Looping over every result item
+            for (var i = 0; i < response.drinks.length; i++) {
+
+                $('.drinks').append("<li><a>" + response.drinks[i].strDrink + "</a></li>");
+                console.log(response.drinks[i].strDrink);
+
+            }
+        });
+});
+
 // Event listener for all button elements
 $("#search").on("click", function() {
     console.log("click");
