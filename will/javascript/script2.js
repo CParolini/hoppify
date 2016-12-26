@@ -77,7 +77,7 @@ var ajaxList = function(queryURL){
 
 //returns the ingredients for the first drink in the array, this
 //searchs by the drink name so we assume that it's the first in the array
-var ajaxDrink = function(){
+var ajaxDrink = function(queryURL){
     $.ajax({
             url: queryURL,
             method: "GET"
@@ -98,6 +98,15 @@ var ajaxDrink = function(){
             //holds the current measure
             var currentMeasure = '';
 
+            // returns a picture if there is a picture
+            if (store.drinks[0].strDrinkThumb == '' || store.drinks[0].strDrinkThumb == null){
+                //default image
+                console.log('<img src = "assets/imgages/' + dropDownDrink + '.jpg"></img>');
+            } else {
+                //pulls image from the database
+                console.log('<img src = "' + response.drinks[0].strDrinkThumb + '"></img>');
+            }
+            
             //While there is an ingredient we continue to loop
             while (moreIngredients) {
                 
