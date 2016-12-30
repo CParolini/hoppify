@@ -1,6 +1,10 @@
+//holds the response from ajax queries, mostly for debugging
 var store = "";
+//stores what drink was search for or clicked on
 var dropDownDrink = '';
+//holds the queryURL for the ajaxList function
 var queryURL = '';
+
 // Event listener for all drop down elements except the non Alcoholic drinks
 $(".mixMenu").on("click", function() {
     // In this case, the "this" keyword refers to the button that was clicked
@@ -75,7 +79,7 @@ var ajaxList = function(queryURL) {
 
             }
         });
-}
+};
 
 //returns the ingredients for the first drink in the array, this
 //searchs by the drink name so we assume that it's the first in the array
@@ -134,4 +138,5 @@ var ajaxDrink = function(queryURL) {
             }
 
         });
-}
+};
+
