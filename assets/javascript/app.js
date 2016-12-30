@@ -7,7 +7,7 @@ $(".mixMenu").on("click", function() {
     $(".drinks").empty();
     dropDownDrink = this.outerText;
     $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
-    
+
     // Constructing a URL to search cocktail db
     queryURL = "http://www.thecocktaildb.com/api/json/v1/6526/search.php?s=" + dropDownDrink;
 
@@ -21,7 +21,7 @@ $(".nonAlcoholic").on("click", function() {
     $(".drinks").empty();
     dropDownDrink = this.outerText;
     $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
-    
+
     // Constructing a URL to search cocktail db
     queryURL = "http://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic";
 
@@ -39,24 +39,26 @@ $("#search").on("click", function() {
 
     // Performing our AJAX GET request
     ajaxList(queryURL);
+    $(".drinks").empty();
+    $(".form-control").empty();
+    return false;
 });
 
 //Listens for clicks on a specific drink, this is to return ingredients
 $(".drinks").on("click", '.drinkRecipe', function() {
     // In this case, the "this" keyword refers to the button that was clicked
-    
+
     var drinkSearch;
-    drinkSearch = this.outerText;    
+    drinkSearch = this.outerText;
     // Constructing a URL to search cocktail db
     queryURL = "http://www.thecocktaildb.com/api/json/v1/6526/search.php?s=" + drinkSearch;
 
     // Performing our AJAX GET request
     ajaxDrink(queryURL);
-
 });
 
 //returns a list of drinks
-var ajaxList = function(queryURL){
+var ajaxList = function(queryURL) {
     $.ajax({
             url: queryURL,
             method: "GET"
@@ -77,7 +79,7 @@ var ajaxList = function(queryURL){
 
 //returns the ingredients for the first drink in the array, this
 //searchs by the drink name so we assume that it's the first in the array
-var ajaxDrink = function(queryURL){
+var ajaxDrink = function(queryURL) {
     $.ajax({
             url: queryURL,
             method: "GET"
@@ -99,37 +101,37 @@ var ajaxDrink = function(queryURL){
             var currentMeasure = '';
 
             // returns a picture if there is a picture
-            if (store.drinks[0].strDrinkThumb == '' || store.drinks[0].strDrinkThumb == null){
+            if (store.drinks[0].strDrinkThumb == '' || store.drinks[0].strDrinkThumb == null) {
                 //default image
                 console.log('<img src = "assets/imgages/' + dropDownDrink + '.jpg"></img>');
             } else {
                 //pulls image from the database
                 console.log('<img src = "' + response.drinks[0].strDrinkThumb + '"></img>');
             }
-            
+
             //While there is an ingredient we continue to loop
             while (moreIngredients) {
-                
+
                 //grab ingredient number i
                 currentIngredient = 'response.drinks[0].strIngredient' + i;
                 //grab measurement number i
                 currentMeasure = 'response.drinks[0].strMeasure' + i;
-                
+
                 //go to the next ingredient for the next loop through
                 i++;
-                
+
                 //if there is no current ingredient, then we break out of the loop
-                if (eval(currentIngredient) === ''){
+                if (eval(currentIngredient) === '') {
                     moreIngredients = false;
                     //returns instructions
                     console.log(response.drinks[0].strInstructions);
                     //exits the loop
                     return;
                 }
-                
+
                 //returns the current ingredient
                 console.log(eval(currentMeasure) + eval(currentIngredient));
-            } 
+            }
 
         });
 }
