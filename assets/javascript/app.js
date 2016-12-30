@@ -1,103 +1,83 @@
 var store = "";
-// Event listener for all button elements
-$("#margarita").on("click", function() {
+var dropDownDrink = '';
+var queryURL = '';
+// Event listener for all drop down elements except the non Alcoholic drinks
+$(".mixMenu").on("click", function() {
     // In this case, the "this" keyword refers to the button that was clicked
     $(".drinks").empty();
-    $(".info").html("<img src='assets/image/margarita.jpg'>")
-        //var searchFor = $('.form-control').val();
-        // Constructing a URL to search cocktail db
-    var searchFor = $('.form-control').val();
-    console.log(searchFor);
+    dropDownDrink = this.outerText;
+    $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
+    
     // Constructing a URL to search cocktail db
-    var queryURL = "http://www.thecocktaildb.com/api/json/v1/6526/search.php?s=" + searchFor;
+    queryURL = "http://www.thecocktaildb.com/api/json/v1/6526/search.php?s=" + dropDownDrink;
 
     // Performing our AJAX GET request
-    $.ajax({
-            url: queryURL,
-            method: "GET"
-        })
-        // After the data comes back from the API
-        .done(function(response) {
-            // Storing an array of results in the results variable
-
-            store = response;
-            // Looping over every result item
-            for (var i = 0; i < response.drinks.length; i++) {
-
-                $('.drinks').append("<li><a>" + response.drinks[i].strDrink + "</a></li>");
-                console.log(response.drinks[i].strDrink);
-
-            }
-        });
+    ajaxList(queryURL);
 });
-// Event listener for all button elements
-$("#cocktail").on("click", function() {
+
+//special case for the non Alcoholic drinks, we use a different base url
+$(".nonAlcoholic").on("click", function() {
     // In this case, the "this" keyword refers to the button that was clicked
     $(".drinks").empty();
-    $(".info").html("<img src='assets/image/drinks.jpg'>")
-
-    //var searchFor = $('.form-control').val();
+    dropDownDrink = this.outerText;
+    $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
+    
     // Constructing a URL to search cocktail db
-    var queryURL = "http://www.thecocktaildb.com/api/json/v1/6526/search.php?s=cocktail";
+    queryURL = "http://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic";
 
     // Performing our AJAX GET request
-    $.ajax({
-            url: queryURL,
-            method: "GET"
-        })
-        // After the data comes back from the API
-        .done(function(response) {
-            // Storing an array of results in the results variable
-
-            store = response;
-            // Looping over every result item
-            for (var i = 0; i < response.drinks.length; i++) {
-
-                $('.drinks').append("<li><a>" + response.drinks[i].strDrink + "</a></li>");
-                console.log(response.drinks[i].strDrink);
-
-            }
-        });
+    ajaxList(queryURL);
 });
-// Event listener for all button elements
-$("#fruit").on("click", function() {
-    // In this case, the "this" keyword refers to the button that was clicked
-    $(".drinks").empty();
-    $(".info").html("<img src='assets/image/fruit.jpg'>")
-        //var searchFor = $('.form-control').val();
-        // Constructing a URL to search cocktail db
-    var queryURL = "http://www.thecocktaildb.com/api/json/v1/6526/search.php?s=fruit";
 
-    // Performing our AJAX GET request
-    $.ajax({
-            url: queryURL,
-            method: "GET"
-        })
-        // After the data comes back from the API
-        .done(function(response) {
-            // Storing an array of results in the results variable
-
-            store = response;
-            // Looping over every result item
-            for (var i = 0; i < response.drinks.length; i++) {
-
-                $('.drinks').append("<li><a>" + response.drinks[i].strDrink + "</a></li>");
-                console.log(response.drinks[i].strDrink);
-
-            }
-        });
-});
-// Event listener for all button elements
+// Event listener for the search bar
 $("#search").on("click", function() {
-    console.log("click");
-    // In this case, the "this" keyword refers to the button that was clicked
 
+    //search term is pulled from the search bar
     var searchFor = $('.form-control').val();
-    console.log(searchFor);
     // Constructing a URL to search cocktail db
     var queryURL = "http://www.thecocktaildb.com/api/json/v1/6526/search.php?s=" + searchFor;
 
     // Performing our AJAX GET request
+    ajaxList(queryURL);
+});
+
+//Listens for clicks on a specific drink, this is to return ingredients
+$(".drinks").on("click", '.drinkRecipe', function() {
+    // In this case, the "this" keyword refers to the button that was clicked
+    
+    var drinkSearch;
+    drinkSearch = this.outerText;    
+    // Constructing a URL to search cocktail db
+    queryURL = "http://www.thecocktaildb.com/api/json/v1/6526/search.php?s=" + drinkSearch;
+
+    // Performing our AJAX GET request
+    ajaxDrink(queryURL);
+
+});
+
+//returns a list of drinks
+var ajaxList = function(queryURL){
+    $.ajax({
+            url: queryURL,
+            method: "GET"
+        })
+        // using the queryURL from click listener that called it
+        .done(function(response) {
+            // Storing an array of results in the results variable
+
+            store = response;
+            // Looping over every result item
+            for (var i = 0; i < response.drinks.length; i++) {
+
+                $('.drinks').append("<li><a class = 'drinkRecipe'>" + response.drinks[i].strDrink + "</a></li>");
+
+            }
+        });
+}
+
+//returns the ingredients for the first drink in the array, this
+//searchs by the drink name so we assume that it's the first in the array
+var ajaxDrink = function(queryURL){
     $.ajax({
             url: queryURL,
             method: "GET"
@@ -105,14 +85,51 @@ $("#search").on("click", function() {
         // After the data comes back from the API
         .done(function(response) {
             // Storing an array of results in the results variable
-            $(".drinks").empty();
+
             store = response;
-            // Looping over every result item
-            for (var i = 0; i < response.drinks.length; i++) {
 
-                $('.drinks').append('<h2 class ="dropDown">' + response.drinks[i].strDrink + '</h2>');
-                console.log(response.drinks[i].strDrink);
+            //this remains true as long as the currentIngredient is not equal
+            //to '', which means there are no more ingredients
+            var moreIngredients = true;
+            //i starts as 1 because there is no strIngredient0
+            var i = 1;
+            //holds the current ingredient
+            var currentIngredient = '';
+            //holds the current measure
+            var currentMeasure = '';
 
+            // returns a picture if there is a picture
+            if (store.drinks[0].strDrinkThumb == '' || store.drinks[0].strDrinkThumb == null){
+                //default image
+                console.log('<img src = "assets/imgages/' + dropDownDrink + '.jpg"></img>');
+            } else {
+                //pulls image from the database
+                console.log('<img src = "' + response.drinks[0].strDrinkThumb + '"></img>');
             }
+            
+            //While there is an ingredient we continue to loop
+            while (moreIngredients) {
+                
+                //grab ingredient number i
+                currentIngredient = 'response.drinks[0].strIngredient' + i;
+                //grab measurement number i
+                currentMeasure = 'response.drinks[0].strMeasure' + i;
+                
+                //go to the next ingredient for the next loop through
+                i++;
+                
+                //if there is no current ingredient, then we break out of the loop
+                if (eval(currentIngredient) === ''){
+                    moreIngredients = false;
+                    //returns instructions
+                    console.log(response.drinks[0].strInstructions);
+                    //exits the loop
+                    return;
+                }
+                
+                //returns the current ingredient
+                console.log(eval(currentMeasure) + eval(currentIngredient));
+            } 
+
         });
-});
+}
