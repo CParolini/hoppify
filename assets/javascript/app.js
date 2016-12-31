@@ -139,4 +139,3 @@ var ajaxDrink = function(queryURL) {
 
         });
 };
-
