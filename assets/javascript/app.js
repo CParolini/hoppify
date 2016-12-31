@@ -1,33 +1,53 @@
-//holds the response from ajax queries, mostly for debugging
+//This variable is mainly for storing a response in a global variable for 
+//debugging, it shouldn't be necessary anywhere in the code
 var store = "";
-//stores what drink was search for or clicked on
+//This variable holds the text from the dropdown search bar. It is responsible
+//for finding the default image and it goes on the end of the queryURL as the
+//search term
 var dropDownDrink = '';
-//holds the queryURL for the ajaxList function
+//this holds the ajax call for a function to execute
 var queryURL = '';
+//Our default query searches by the drink name, but the non-alcholic tab
+//does a search for alcohol. This search returns less information, so later
+//we need to search for the specific drink by name to get the missing info
+var hasAlcohol = '';
 
-// Event listener for all drop down elements except the non Alcoholic drinks
+// Event listener for all drop down elements except the non Alcoholic drinks (special case)
 $(".mixMenu").on("click", function() {
-    // In this case, the "this" keyword refers to the button that was clicked
+    // In this case, the "this" keyword refers to the dropdown option that was clicked
     $(".drinks").empty();
+    //pulls menu name
     dropDownDrink = this.outerText;
+    //default image
     $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
 
-    // Constructing a URL to search cocktail db
+    // Constructing a URL to search cocktail db - the search term is filled by the
+    //drop down that was selected
     queryURL = "http://www.thecocktaildb.com/api/json/v1/6526/search.php?s=" + dropDownDrink;
+
+    //uses the defulat query
+    hasAlcohol = 'alcoholic';
 
     // Performing our AJAX GET request
     ajaxList(queryURL);
 });
 
-//special case for the non Alcoholic drinks, we use a different base url
+//special case for the non Alcoholic drinks, we use a different base url for these
 $(".nonAlcoholic").on("click", function() {
-    // In this case, the "this" keyword refers to the button that was clicked
+    // In this case, the "this" keyword refers to the dropdown option that was clicked
     $(".drinks").empty();
+    //pulls menu name
     dropDownDrink = this.outerText;
+    //default image
     $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
 
-    // Constructing a URL to search cocktail db
+    // Constructing a URL to search cocktail db - the search term is filled by the
+    //drop down that was selected
     queryURL = "http://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic";
+
+    //special search case, this will cause a different function to be called
+    //when a nonAlcoholic drink is clicked
+    hasAlcohol = 'nonAlcoholic';
 
     // Performing our AJAX GET request
     ajaxList(queryURL);
@@ -38,8 +58,13 @@ $("#search").on("click", function() {
 
     //search term is pulled from the search bar
     var searchFor = $('.form-control').val();
+
     // Constructing a URL to search cocktail db
     var queryURL = "http://www.thecocktaildb.com/api/json/v1/6526/search.php?s=" + searchFor;
+
+    //default search, this works for any type of drink (alcoholic or not) 
+    //because the url we use above
+    hasAlcohol = 'alcoholic';
 
     // Performing our AJAX GET request
     ajaxList(queryURL);
@@ -49,19 +74,31 @@ $("#search").on("click", function() {
 });
 
 //Listens for clicks on a specific drink, this is to return ingredients
-$(".drinks").on("click", '.drinkRecipe', function() {
-    // In this case, the "this" keyword refers to the button that was clicked
+//finds the alcoholic or default class to preform a normal search
+$(".drinks").on("click", '.alcoholic', function() {
+    // In this case, the "this" keyword refers to the specific drink that was clicked
+    var number = $(this).data('number');
 
+    //uses the database to search -- the normal query returns all needed info
+    firebaseDrink(number);
+});
+
+//Listens for clicks on specific drinks that used the non-alcoholic search
+//This url returns less information, and so we need to do an extra query to
+//pull in the missing info
+$(".drinks").on("click", '.nonAlcoholic', function() {
+    //stores the name of the drink
     var drinkSearch;
+    //pulls the name of the drink from the html and stores it in drinkSearch
     drinkSearch = this.outerText;
-    // Constructing a URL to search cocktail db
+    // Constructing a URL to search cocktail db, the term comes from the clicked html
     queryURL = "http://www.thecocktaildb.com/api/json/v1/6526/search.php?s=" + drinkSearch;
 
-    // Performing our AJAX GET request
+    // Performing our AJAX GET request to get the missing info
     ajaxDrink(queryURL);
 });
 
-//returns a list of drinks
+//returns a list of drinks from the cocktaildb
 var ajaxList = function(queryURL) {
     $.ajax({
             url: queryURL,
@@ -71,18 +108,82 @@ var ajaxList = function(queryURL) {
         .done(function(response) {
             // Storing an array of results in the results variable
 
+            database.ref().set({
+                currentDrinks: response
+            });
+
             store = response;
             // Looping over every result item
             for (var i = 0; i < response.drinks.length; i++) {
 
-                $('.drinks').append("<li><a class = 'drinkRecipe'>" + response.drinks[i].strDrink + "</a></li>");
+                //we give this a class of hasAlcohol to determine if we need
+                //to use the default search or special case in the future
+                //the data-number is where it appears in the array
+                $('.drinks').append("<li><a class = '"+ hasAlcohol +"' data-number = '"+ i +"'>" + response.drinks[i].strDrink + "</a></li>");
 
             }
         });
-};
+}
 
-//returns the ingredients for the first drink in the array, this
-//searchs by the drink name so we assume that it's the first in the array
+//finds the drink that we stored on firebase based on which data-number we click on
+var firebaseDrink = function(number) {
+
+    //holds the current drink
+    var selectDrink;
+
+    //jump to firebase
+    firebase.database().ref().once('value').then(function(snapshot){
+        
+        //finds the drink clicked on by the data-number property
+        selectDrink = snapshot.val().currentDrinks.drinks[number];
+
+            //this remains true as long as the currentIngredient is not equal
+            //to '', which means there are no more ingredients
+            var moreIngredients = true;
+            //i starts as 1 because there is no strIngredient0
+            var i = 1;
+            //holds the current ingredient
+            var currentIngredient = '';
+            //holds the current measure
+            var currentMeasure = '';
+
+            // returns a picture if there is a picture, or we add a default
+            if (selectDrink.strDrinkThumb == '' || selectDrink.strDrinkThumb == null) {
+                //default image
+                console.log('<img src = "assets/imgages/' + dropDownDrink + '.jpg"></img>');
+            } else {
+                //pulls image from the database
+                console.log('<img src = "' + selectDrink.strDrinkThumb + '"></img>');
+            }
+
+            //While there is an ingredient we continue to loop
+            while (moreIngredients) {
+
+                //grab ingredient number i
+                currentIngredient = 'selectDrink.strIngredient' + i;
+                //grab measurement number i
+                currentMeasure = 'selectDrink.strMeasure' + i;
+
+                //go to the next ingredient for the next loop through
+                i++;
+
+                //if there is no current ingredient, then we break out of the loop
+                if (eval(currentIngredient) === '') {
+                    moreIngredients = false;
+                    //returns instructions
+                    console.log(selectDrink.strInstructions);
+                    //exits the loop
+                    return;
+                }
+
+                //returns the current ingredient
+                console.log(eval(currentMeasure) + eval(currentIngredient));
+            }
+
+        });
+}
+
+//the non-alcoholic search requires more information, so we do another ajax call
 var ajaxDrink = function(queryURL) {
     $.ajax({
             url: queryURL,
@@ -105,7 +206,7 @@ var ajaxDrink = function(queryURL) {
             var currentMeasure = '';
 
             // returns a picture if there is a picture
-            if (store.drinks[0].strDrinkThumb == '' || store.drinks[0].strDrinkThumb == null) {
+            if (response.drinks[0].strDrinkThumb == '' || response.drinks[0].strDrinkThumb == null) {
                 //default image
                 console.log('<img src = "assets/imgages/' + dropDownDrink + '.jpg"></img>');
             } else {
@@ -138,4 +239,19 @@ var ajaxDrink = function(queryURL) {
             }
 
         });
+}
+
+//giving the firebase location
+var config = {
+    apiKey: "AIzaSyAWsHg3xzxLY3hT-WfHJJtJL3JmLqW7R8c",
+    authDomain: "hoppify-1bdea.firebaseapp.com",
+    databaseURL: "https://hoppify-1bdea.firebaseio.com",
+    storageBucket: "hoppify-1bdea.appspot.com",
+    messagingSenderId: "939603520664"
 };
+
+//initialize firebase
+firebase.initializeApp(config);
+
+//storing the database in a variable
+var database = firebase.database();
