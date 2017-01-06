@@ -11,6 +11,8 @@ var queryURL = '';
 //does a search for alcohol. This search returns less information, so later
 //we need to search for the specific drink by name to get the missing info
 var hasAlcohol = '';
+//holds the current clickable drinks on the page
+var currentDrinks = '';
 
 // Event listener for all drop down elements except the non Alcoholic drinks (special case)
 $(".mixMenu").on("click", function() {
@@ -80,7 +82,7 @@ $(".drinks").on("click", '.alcoholic', function() {
     var number = $(this).data('number');
 
     //uses the database to search -- the normal query returns all needed info
-    firebaseDrink(number);
+    storedDrink(number);
 });
 
 //Listens for clicks on specific drinks that used the non-alcoholic search
@@ -108,11 +110,12 @@ var ajaxList = function(queryURL) {
         .done(function(response) {
             // Storing an array of results in the results variable
 
-            database.ref().set({
-                currentDrinks: response
-            });
 
-            store = response;
+            currentDrinks = response;
+
+            //used for debugging
+            //store = response;
+
             // Looping over every result item
             for (var i = 0; i < response.drinks.length; i++) {
 
@@ -126,61 +129,58 @@ var ajaxList = function(queryURL) {
 }
 
 //finds the drink that we stored on firebase based on which data-number we click on
-var firebaseDrink = function(number) {
+var storedDrink = function(number) {
 
     //holds the current drink
     var selectDrink;
 
-    //jump to firebase
-    firebase.database().ref().once('value').then(function(snapshot){
+    
         
         //finds the drink clicked on by the data-number property
-        selectDrink = snapshot.val().currentDrinks.drinks[number];
+        selectDrink = currentDrinks.drinks[number];
 
-            //this remains true as long as the currentIngredient is not equal
-            //to '', which means there are no more ingredients
-            var moreIngredients = true;
-            //i starts as 1 because there is no strIngredient0
-            var i = 1;
-            //holds the current ingredient
-            var currentIngredient = '';
-            //holds the current measure
-            var currentMeasure = '';
+        //this remains true as long as the currentIngredient is not equal
+        //to '', which means there are no more ingredients
+        var moreIngredients = true;
+        //i starts as 1 because there is no strIngredient0
+        var i = 1;
+        //holds the current ingredient
+        var currentIngredient = '';
+        //holds the current measure
+        var currentMeasure = '';
 
-            // returns a picture if there is a picture, or we add a default
-            if (selectDrink.strDrinkThumb == '' || selectDrink.strDrinkThumb == null) {
-                //default image
-                console.log('<img src = "assets/imgages/' + dropDownDrink + '.jpg"></img>');
-            } else {
-                //pulls image from the database
-                console.log('<img src = "' + selectDrink.strDrinkThumb + '"></img>');
+        // returns a picture if there is a picture, or we add a default
+        if (selectDrink.strDrinkThumb == '' || selectDrink.strDrinkThumb == null) {
+            //default image
+            console.log('<img src = "assets/imgages/' + dropDownDrink + '.jpg"></img>');
+        } else {
+            //pulls image from the database
+            console.log('<img src = "' + selectDrink.strDrinkThumb + '"></img>');
+        }
+
+        //While there is an ingredient we continue to loop
+        while (moreIngredients) {
+
+            //grab ingredient number i
+            currentIngredient = 'selectDrink.strIngredient' + i;
+            //grab measurement number i
+            currentMeasure = 'selectDrink.strMeasure' + i;
+
+            //go to the next ingredient for the next loop through
+            i++;
+
+            //if there is no current ingredient, then we break out of the loop
+            if (eval(currentIngredient) === '') {
+                moreIngredients = false;
+                //returns instructions
+                console.log(selectDrink.strInstructions);
+                //exits the loop
+                return;
             }
 
-            //While there is an ingredient we continue to loop
-            while (moreIngredients) {
-
-                //grab ingredient number i
-                currentIngredient = 'selectDrink.strIngredient' + i;
-                //grab measurement number i
-                currentMeasure = 'selectDrink.strMeasure' + i;
-
-                //go to the next ingredient for the next loop through
-                i++;
-
-                //if there is no current ingredient, then we break out of the loop
-                if (eval(currentIngredient) === '') {
-                    moreIngredients = false;
-                    //returns instructions
-                    console.log(selectDrink.strInstructions);
-                    //exits the loop
-                    return;
-                }
-
-                //returns the current ingredient
-                console.log(eval(currentMeasure) + eval(currentIngredient));
-            }
-
-        });
+            //returns the current ingredient
+            console.log(eval(currentMeasure) + eval(currentIngredient));
+        }
 }
 
 //the non-alcoholic search requires more information, so we do another ajax call
