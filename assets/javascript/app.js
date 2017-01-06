@@ -150,3 +150,21 @@ function doSlideshow(){
         setTimeout(doSlideshow,5000);
     });
 }
+//click on license tab
+$('#license').on('click', function(){
+//clear the drinks and info section
+	$('.drinks').empty();
+	$('.drinkRecipe').empty();
+	$('.info').empty();
+//add a image link and paragraph
+	$('.info').html("<a href='https://txbartendinglicense.com/web/index.php?siteid=61&pageid=339'>"+'<img src="assets/image/tabc.jpg"'+"</a>");
+	$('.drinks').html("<p>'Learn How to be a Great Bartender!<br> This Bartender Mixology course is a great way to learn how to make hundreds of different drinks.It's a self-paced course that rated at 40 hours and contains all the information you need to know to become a great bartender and make better tip money!  This is a great certification to have on your resume, as it demonstrates that you have taken extensive training and are familiar with the drinks, terminology, and equipment involved with the bar or restaurant field of work. Click on image to get more information and GOOD LUCK!'</p>")
+})
+//click on about tab
+$('#about').on('click', function(){
+	$('.drinks').empty();
+	$('.drinkRecipe').empty();
+	$('.info').empty();
+	$('.info').html('<img src="assets/image/vincent.jpg">');
+	$('.drinks').html("<p>I'm Vincent Gonzalez</p>");
+})
