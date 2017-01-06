@@ -98,6 +98,7 @@ $(".drinks").on("click", '.nonAlcoholic', function() {
     var drinkSearch;
     //pulls the name of the drink from the html and stores it in drinkSearch
     drinkSearch = this.outerText;
+    console.log(this.outerText)
     // Constructing a URL to search cocktail db, the term comes from the clicked html
     queryURL = "http://www.thecocktaildb.com/api/json/v1/6526/search.php?s=" + drinkSearch;
     
@@ -317,4 +318,3 @@ firebase.initializeApp(config);
 
 //storing the database in a variable
 var database = firebase.database();
-
