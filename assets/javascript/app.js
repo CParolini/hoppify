@@ -1,6 +1,7 @@
 var store = "";
 var dropDownDrink = '';
 var queryURL = '';
+var queryURL2 = '';
 // Event listener for all drop down elements except the non Alcoholic drinks
 $(".mixMenu").on("click", function() {
     // In this case, the "this" keyword refers to the button that was clicked
@@ -29,6 +30,20 @@ $(".nonAlcoholic").on("click", function() {
     ajaxList(queryURL);
 });
 
+$(".beerMenu").on("click", function() {
+    // In this case, the "this" keyword refers to the button that was clicked
+    $(".drinks").empty();
+    dropDownDrink = this.outerText;
+    $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
+
+    // Constructing a URL to search cocktail db
+    queryURL2 = "http://api.malt.io/v1/public/recipes?detail=true&slugs=" + dropDownDrink;
+
+    // Performing our AJAX GET request
+    ajaxList2(queryURL2);
+    console.log(queryURL2);
+});
+
 // Event listener for the search bar
 $("#search").on("click", function() {
 
@@ -43,6 +58,27 @@ $("#search").on("click", function() {
     $(".form-control").empty();
     return false;
 });
+
+// Event listener for the beer search bar
+$("#search").on("click", function() {
+
+    //search term is pulled from the search bar
+    var searchFor = $('.form-control').val();
+    // Constructing a URL to search cocktail db
+    var queryURL2 = "http://api.malt.io/v1/public/recipes?detail=true"
+    // &slugs=" + searchFor;
+    // $.getJSON("http: //api.malt.io/v1/public/recipes?detail=true&slugs=" + searchFor).then(function(response) {
+    //         console.log(response)
+    //     })
+
+    // Performing our AJAX GET request
+    ajaxList2(queryURL2);
+    $(".drinks").empty();
+    $(".form-control").empty();
+    console.log(queryURL2);
+    return false;
+});
+
 
 //Listens for clicks on a specific drink, this is to return ingredients
 $(".drinks").on("click", '.drinkRecipe', function() {
@@ -72,6 +108,25 @@ var ajaxList = function(queryURL) {
             for (var i = 0; i < response.drinks.length; i++) {
 
                 $('.drinks').append("<li><a class = 'drinkRecipe'>" + response.drinks[i].strDrink + "</a></li>");
+
+            }
+        });
+}
+//returns a list of beers
+var ajaxList2 = function(queryURL2) {
+    $.ajax({
+            url: queryURL2,
+            method: "GET"
+        })
+        // using the queryURL from click listener that called it
+        .done(function(response) {
+            // Storing an array of results in the results variable
+
+            store = response;
+            // Looping over every result item
+            for (var i = 0; i < response.length; i++) {
+                console.log(response[i].data);
+                $('.drinks').append("<li><a class = 'drinkRecipe'>" + response[i].data.name + "</a></li>");
 
             }
         });
