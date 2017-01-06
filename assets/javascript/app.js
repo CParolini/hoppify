@@ -135,3 +135,18 @@ var ajaxDrink = function(queryURL) {
 
         });
 }
+
+//Array of images which you want to show: Use path you want.
+var images=['assets/image/bar1.jpg','assets/image/bar2.jpg','assets/image/bar3.jpg','assets/image/bar4.jpg','assets/image/bar5.jpg'];
+var nextimage=0;
+doSlideshow();
+
+function doSlideshow(){
+    if(nextimage>=images.length){nextimage=0;}
+    $('body')
+    .css('background-image','url("'+images[nextimage++]+'")')
+    .css('background-size','50%')
+    .fadeIn(500,function(){
+        setTimeout(doSlideshow,5000);
+    });
+}

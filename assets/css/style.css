@@ -2,3 +2,75 @@
 	text-align: center;
 	background-color: darkorange;
 }
+.drinkRecipe:hover {
+	color:white;
+	font-size: 25px;
+	cursor:pointer;
+}
+
+img {
+	width:800px;
+	height:450px;
+}
+.btn {
+	cursor:pointer;
+}
+
+.drinks:hover{
+	color:white;
+}
+
+#lager:hover{
+	color:black;
+	&:active{
+		color:blue;
+	}
+}
+#wheat:hover{
+	color:black;
+	&:active{
+		color:blue;
+	}
+}
+#ale:hover{
+	color:black;
+	&:active{
+		color:blue;
+	}
+}
+#Porter:hover{
+	color:black;
+	&:active{
+		color:blue;
+	}
+}
+#martinis:hover{
+	color:black;
+	&:active{
+		color:blue;
+	}
+}
+#cocktail:hover{
+	color:black;
+	&:active{
+		color:blue;
+	}
+}
+#margarita:hover{
+	color:black;
+	&:active{
+		color:blue;
+	}
+}
+#fruit:hover{
+	color:black;
+	&:active{
+		color:blue;
+	}
+}
+#NA:hover{
+	color:black;
+	&:active{
+		color:blue;
+	}
+}
