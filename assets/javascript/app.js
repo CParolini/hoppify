@@ -162,9 +162,11 @@ $('#license').on('click', function(){
 })
 //click on about tab
 $('#about').on('click', function(){
+//clear the drinks and info section
 	$('.drinks').empty();
 	$('.drinkRecipe').empty();
 	$('.info').empty();
+//add a image and paragraph
 	$('.info').html('<img src="assets/image/vincent.jpg">');
 	$('.drinks').html("<p>I'm Vincent Gonzalez</p>");
 })

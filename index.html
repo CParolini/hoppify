@@ -4,17 +4,34 @@
 <head>
     <meta charset="utf-8">
     <title>Hoppify</title>
+    <!--font family link-->
+    <link href="https://fonts.googleapis.com/css?family=Ewert" rel="stylesheet">
+	<!--bootstrap css link-->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
+ 	<!--jquery script-->
     <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src='assets/javascript/app.js'></script>
+    <!--adding stylesheet link-->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <!--adding font awsome stylesheet link-->
+    <link rel="stylesheet" href="assets/css/font-awsome.css">
 </head>
 
 <body>
     <div class="jumbotron">
         <h1>Hoppify</h1>
+        <div class="btn-group open">
+  <a class="btn btn-primary" href="#"><i class="fa fa-user fa-fw"></i> User</a>
+  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+    <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <li><a href="#"><i class="fa fa-pencil fa-fw"></i> Edit</a></li>
+    <li><a href="#"><i class="fa fa-trash-o fa-fw"></i> Delete</a></li>
+    <li><a href="#"><i class="fa fa-ban fa-fw"></i> log out</a></li>
+  </ul>
+</div>
     </div>
     <div class="container">
         <div class="row">
@@ -73,7 +90,7 @@
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="Search for...">
                                     <span class="input-group-btn" id="search">
-        <button class="btn btn-default"  type="button">Go!</button>
+        <button class="btn btn-default"  type="button" id="go">Go!</button>
       </span>
                                 </div>
                             </div>

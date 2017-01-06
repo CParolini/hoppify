@@ -1,4 +1,5 @@
 .jumbotron {
+	font-family: 'Ewert', cursive; 
 	text-align: center;
 	background-color: darkorange;
 }
@@ -80,6 +81,9 @@ img {
 		color:blue;
 	}
 }
-#license:hover{
+#license:hover, #about:hover{
 	color:blue;
+}
+#go:hover{
+	color:lightgreen;
 }
