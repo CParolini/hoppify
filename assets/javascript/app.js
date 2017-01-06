@@ -98,7 +98,9 @@ $(".drinks").on("click", '.nonAlcoholic', function() {
     var drinkSearch;
     //pulls the name of the drink from the html and stores it in drinkSearch
     drinkSearch = this.outerText;
-    console.log(this.outerText)
+    //Searchs for ' and replaces it with &#39, so the queryURL can be read
+    drinkSearch = drinkSearch.replace(/'/i, "&#39");
+
     // Constructing a URL to search cocktail db, the term comes from the clicked html
     queryURL = "http://www.thecocktaildb.com/api/json/v1/6526/search.php?s=" + drinkSearch;
     
