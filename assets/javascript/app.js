@@ -98,6 +98,35 @@ $(".drinks").on("click", '.nonAlcoholic', function() {
 
     // Performing our AJAX GET request to get the missing info
     ajaxDrink(queryURL);
+
+//    $('.popUp').show();
+    // Get the modal
+    var modal = document.getElementById('myModal');
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on the button, open the modal 
+    
+    modal.style.display = "block";
+    
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+
 });
 
 //returns a list of drinks from the cocktaildb
@@ -208,10 +237,12 @@ var ajaxDrink = function(queryURL) {
             // returns a picture if there is a picture
             if (response.drinks[0].strDrinkThumb == '' || response.drinks[0].strDrinkThumb == null) {
                 //default image
-                console.log('<img src = "assets/imgages/' + dropDownDrink + '.jpg"></img>');
+                console.log('<img src = "assets/image/' + dropDownDrink + '.jpg"></img>');
+                $(".modal-body").html('<img src = "assets/image/' + dropDownDrink + '.jpg"></img>');
             } else {
                 //pulls image from the database
                 console.log('<img src = "' + response.drinks[0].strDrinkThumb + '"></img>');
+                $(".modal-body").html('<img src = "' + response.drinks[0].strDrinkThumb + '" style="width: 250px; height:250px;"></img>');
             }
 
             //While there is an ingredient we continue to loop
@@ -230,13 +261,16 @@ var ajaxDrink = function(queryURL) {
                     moreIngredients = false;
                     //returns instructions
                     console.log(response.drinks[0].strInstructions);
+                    $(".modal-footer").append(response.drinks[0].strInstructions);
                     //exits the loop
                     return;
                 }
 
                 //returns the current ingredient
                 console.log(eval(currentMeasure) + eval(currentIngredient));
+                $(".modal-subfooter").append(eval(currentMeasure) + eval(currentIngredient));
             }
+
 
         });
 }
@@ -255,3 +289,4 @@ firebase.initializeApp(config);
 
 //storing the database in a variable
 var database = firebase.database();
+
