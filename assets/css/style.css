@@ -28,6 +28,7 @@
 
 /* Modal Content/Box */
 .modal-content {
+    top: -245px;
     background-color: black;
     color: white;
     margin: 15% auto; /* 15% from the top and centered */
