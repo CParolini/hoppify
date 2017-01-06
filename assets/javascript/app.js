@@ -58,31 +58,94 @@ $(".nonAlcoholic").on("click", function() {
 $(".beerMenu").on("click", function() {
     // In this case, the "this" keyword refers to the button that was clicked
     dropDownDrink = this.outerText;
-    $(".drinks").html("<h1>" + dropDownDrink + "</h1>");
-    if (dropDownDrink === "American Pale Ale") {
-        $(".drinks").append("<p>" + "Of British origin, this style is now popular worldwide and the use of local ingredients, or imported, produces variances in character from region to region.Generally, expect a good balance of malt and hops.Fruity esters and diacetyl can vary from none to moderate, and bitterness can range from lightly floral to pungent." + "</p>");
-        $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
-    } else if (dropDownDrink === "Dark Beer") {
-      $(".drinks").append("<p>" + "Dark beer is made using roasted malt or roasted barley, hops, water and yeast. Stouts were traditionally the generic term for the strongest or stoutest porters, typically 7% or 8%, produced by a brewery." + "</p>");
-      $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
-    } else if (dropDownDrink === "Hefeweizen") {
-      $(".drinks").append("<p>" + "Another name for Weissbier. 'Hefe' means yeast, and 'Weizen' means wheat, so Hefeweizen is 'yeast wheat.' Germans prefer to call the brew Weissbier, while North Americans prefer the term Hefeweizen. The beer is yeast turbid, because it is unfiltered." + "</p>");
-      $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
-    } else if (dropDownDrink === "Irish Red") {
-      $(".drinks").append("<p>" + "Irish Red Ale is an ale originating in Ireland that has a reddish hue from the inclusion of a small amount of roasted barley. In America, some darker amber ales and ales with artificial coloring are also labeled as red ales." + "</p>");
-      $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
-    } else {
-      $(".drinks").empty();
-      $(".info").empty();
-    }
-
     // Constructing a URL to search cocktail db
     queryURL2 = "http://api.malt.io/v1/public/recipes?detail=true&slugs=" + dropDownDrink;
-
+    console.log(queryURL2);
+    // console.log(queryURL2);
+    // $(".drinks").html("<h1 class=" + dropDownDrink + ">" + "<a href='http://api.malt.io/v1/public/recipes?detail=true&slugs=american-pale-ale'>" + dropDownDrink + "</a>" + "</h1>");
+    if (dropDownDrink === "American Pale Ale") {
+        $(".drinks").html("<h1 class='beerClass'>" + dropDownDrink + "</a>" + "</h1>");
+        $(".drinks").append("<p>" + "American Pale Ale is of British origin, this style is now popular worldwide and the use of local ingredients, or imported, produces variances in character from region to region.Generally, expect a good balance of malt and hops.Fruity esters and diacetyl can vary from none to moderate, and bitterness can range from lightly floral to pungent." + "</p>");
+        $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>");
+    } else if (dropDownDrink === "Dark Beer") {
+        $(".drinks").html("<h1 class='beerClass'>" + dropDownDrink + "</h1>");
+        $(".drinks").append("<p>" + "Dark beer is made using roasted malt or roasted barley, hops, water and yeast. Stouts were traditionally the generic term for the strongest or stoutest porters, typically 7% or 8%, produced by a brewery." + "</p>");
+        $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>");
+    } else if (dropDownDrink === "Hefeweizen") {
+        $(".drinks").html("<h1 class='beerClass'>" + dropDownDrink + "</h1>");
+        $(".drinks").append("<p>" + "Another name for Weissbier. 'Hefe' means yeast, and 'Weizen' means wheat, so Hefeweizen is 'yeast wheat.' Germans prefer to call the brew Weissbier, while North Americans prefer the term Hefeweizen. The beer is yeast turbid, because it is unfiltered." + "</p>");
+        $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>");
+    } else if (dropDownDrink === "Irish Red") {
+        $(".drinks").html("<h1 class='beerClass'>" + dropDownDrink + "</h1>");
+        $(".drinks").append("<p>" + "Irish Red Ale is an ale originating in Ireland that has a reddish hue from the inclusion of a small amount of roasted barley. In America, some darker amber ales and ales with artificial coloring are also labeled as red ales." + "</p>");
+        $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>");
+    } else {
+        $(".drinks").empty();
+        $(".info").empty();
+    }
     // Performing our AJAX GET request
     ajaxList2(queryURL2);
-    console.log(queryURL2);
 });
+// beer modal
+$(".drinks").on("click", '.beerClass', function() {
+    // var ajaxList2 = function(queryURL2) {
+    //         $.ajax({
+    //                 url: queryURL2,
+    //                 method: "GET"
+    //             })
+    //             // using the queryURL from click listener that called it
+    //             .done(function(response) {
+    //                 // Storing an array of results in the results variable
+    //
+    //                 store = response;
+    //                 // Looping over every result item
+    //                 for (var i = 0; i < response.length; i++) {
+    //                     // console.log(response[i].data);
+    //                     $('.drinks').append("<li><a class = 'drinkRecipe'>" + response[i].data.name + "</a></li>");
+    //
+    //                 }
+    //             });
+    //     }
+        //stores the name of the drink
+    var drinkSearch;
+    //pulls the name of the drink from the html and stores it in drinkSearch
+    drinkSearch = this.outerText;
+    console.log(drinkSearch)
+        // Constructing a URL to search cocktail db, the term comes from the clicked html
+    queryURL2 = "http://api.malt.io/v1/public/recipes?detail=true&slugs=american-pale-ale";
+
+    //    $('.popUp').show();
+    // Get the modal
+    var modal = document.getElementById('myModal');
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close");
+
+    // When the user clicks on the button, open the modal
+
+    modal.style.display = "block";
+
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    $(".modal-body").html("<img src='assets/image/" + drinkSearch + ".jpg'>");
+    $(".modal-header").html("<h1>" + drinkSearch + "</h1>");
+    $(".modal-footer").html("How to Make Goes Here");
+    $(".modal-subfooter").html("Ingredients Goes Here");
+});
+
 
 // Event listener for the search bar
 $("#search").on("click", function() {
@@ -117,9 +180,25 @@ $("#search").on("click", function() {
 
     // Performing our AJAX GET request
     ajaxList2(queryURL2);
-    $(".drinks").empty();
-    $(".form-control").empty();
+    // $(".drinks").empty();
+    // $(".form-control").empty();
     console.log(queryURL2);
+    if (dropDownDrink === "American Pale Ale") {
+        $(".drinks").append("<p>" + "Of British origin, this style is now popular worldwide and the use of local ingredients, or imported, produces variances in character from region to region.Generally, expect a good balance of malt and hops.Fruity esters and diacetyl can vary from none to moderate, and bitterness can range from lightly floral to pungent." + "</p>");
+        $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
+    } else if (dropDownDrink === "Dark Beer") {
+        $(".drinks").append("<p>" + "Dark beer is made using roasted malt or roasted barley, hops, water and yeast. Stouts were traditionally the generic term for the strongest or stoutest porters, typically 7% or 8%, produced by a brewery." + "</p>");
+        $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
+    } else if (dropDownDrink === "Hefeweizen") {
+        $(".drinks").append("<p>" + "Another name for Weissbier. 'Hefe' means yeast, and 'Weizen' means wheat, so Hefeweizen is 'yeast wheat.' Germans prefer to call the brew Weissbier, while North Americans prefer the term Hefeweizen. The beer is yeast turbid, because it is unfiltered." + "</p>");
+        $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
+    } else if (dropDownDrink === "Irish Red") {
+        $(".drinks").append("<p>" + "Irish Red Ale is an ale originating in Ireland that has a reddish hue from the inclusion of a small amount of roasted barley. In America, some darker amber ales and ales with artificial coloring are also labeled as red ales." + "</p>");
+        $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
+    } else {
+        $(".drinks").empty();
+        $(".info").empty();
+    }
     return false;
 });
 
@@ -204,25 +283,25 @@ var ajaxList = function(queryURL) {
                 }
             });
     }
-    //returns a list of beers
-var ajaxList2 = function(queryURL2) {
-    $.ajax({
-            url: queryURL2,
-            method: "GET"
-        })
-        // using the queryURL from click listener that called it
-        .done(function(response) {
-            // Storing an array of results in the results variable
+    // returns a list of beers
+    var ajaxList2 = function(queryURL2) {
+        $.ajax({
+                url: queryURL2,
+                method: "GET"
+            })
+            // using the queryURL from click listener that called it
+            .done(function(response) {
+                // Storing an array of results in the results variable
 
-            store = response;
-            // Looping over every result item
-            for (var i = 0; i < response.length; i++) {
-                console.log(response[i].data);
-                $('.drinks').append("<li><a class = 'drinkRecipe'>" + response[i].data.name + "</a></li>");
+                store = response;
+                // Looping over every result item
+                for (var i = 0; i < response.length; i++) {
+                    // console.log(response[i].data);
+                    $('.drinks').append("<li><a class = 'drinkRecipe'>" + response[i].data.name + "</a></li>");
 
-            }
-        });
-}
+                }
+            });
+    }
 
 //finds the drink that we stored on firebase based on which data-number we click on
 var firebaseDrink = function(number) {
