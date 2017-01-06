@@ -320,3 +320,21 @@ firebase.initializeApp(config);
 
 //storing the database in a variable
 var database = firebase.database();
+
+//chat
+database.ref().on('child_added', function(snapshot) {
+    $('.chat').html(snapshot);
+    store = snapshot;
+    console.log('change');
+});
+
+
+$(".chatbtn").on("click", function() {
+
+    var chatMessage = $('.chat-form').val();
+
+    database.ref().push({
+     chat: chatMessage
+    });
+
+});
