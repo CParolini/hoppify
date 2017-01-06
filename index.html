@@ -4,12 +4,15 @@
 <head>
     <meta charset="utf-8">
     <title>Hoppify</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
+    <!-- Load jQuery -->
     <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+    <!-- Load Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src='assets/javascript/app.js'></script>
+    <!-- Load CSS -->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <!-- Load Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
 </head>
 
 <body>
@@ -77,8 +80,8 @@
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="Search for...">
                                     <span class="input-group-btn" id="search">
-        <button class="btn btn-default"  type="button">Go!</button>
-      </span>
+                                        <button class="btn btn-default"  type="button">Go!</button>
+                                    </span>
                                 </div>
                             </div>
                         </ul>
@@ -98,7 +101,47 @@
                 </div>
             </div>
         </div>
+        <div class = 'row'>
+            <div class="input-group2">
+                <input type="text" class="chat-form" placeholder="Chat">
+                <span class="input-group-btn" id="search">
+                <button class="btn btn-default chatbtn"  type="button">Go!</button>
+                </span>
+            </div>
+            <p class = 'chat'>
+            </p>
+        </div>
     </div>
+    <!--
+    <div class="popUp">
+        <h1>Popup</h1>
+
+    </div>
+    -->
+    <!-- Trigger/Open The Modal -->
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+<div class="modal-content">
+  <div class="modal-header">
+    <span class="close">&times;</span>
+    <h2 class = 'modal-title'>Modal Header</h2>
+  </div>
+  <div class="modal-body">
+    <p>Some text in the Modal Body</p>
+    <p>Some other text...</p>
+  </div>
+  <div class="modal-footer">
+    <h3>Description</h3>
+  </div>
+  <div class = "modal-subfooter">
+    <h4>Ingredients</h4>
+</div>
+
+</div>
     <script src='assets/javascript/app.js'></script>
 </body>
 
