@@ -57,9 +57,24 @@ $(".nonAlcoholic").on("click", function() {
 
 $(".beerMenu").on("click", function() {
     // In this case, the "this" keyword refers to the button that was clicked
-    $(".drinks").html("<h1>" + dropDownDrink) + "<h1>";
     dropDownDrink = this.outerText;
-    $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
+    $(".drinks").html("<h1>" + dropDownDrink + "</h1>");
+    if (dropDownDrink === "American Pale Ale") {
+        $(".drinks").append("<p>" + "Of British origin, this style is now popular worldwide and the use of local ingredients, or imported, produces variances in character from region to region.Generally, expect a good balance of malt and hops.Fruity esters and diacetyl can vary from none to moderate, and bitterness can range from lightly floral to pungent." + "</p>");
+        $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
+    } else if (dropDownDrink === "Dark Beer") {
+      $(".drinks").append("<p>" + "Dark beer is made using roasted malt or roasted barley, hops, water and yeast. Stouts were traditionally the generic term for the strongest or stoutest porters, typically 7% or 8%, produced by a brewery." + "</p>");
+      $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
+    } else if (dropDownDrink === "Hefeweizen") {
+      $(".drinks").append("<p>" + "Another name for Weissbier. 'Hefe' means yeast, and 'Weizen' means wheat, so Hefeweizen is 'yeast wheat.' Germans prefer to call the brew Weissbier, while North Americans prefer the term Hefeweizen. The beer is yeast turbid, because it is unfiltered." + "</p>");
+      $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
+    } else if (dropDownDrink === "Irish Red") {
+      $(".drinks").append("<p>" + "Irish Red Ale is an ale originating in Ireland that has a reddish hue from the inclusion of a small amount of roasted barley. In America, some darker amber ales and ales with artificial coloring are also labeled as red ales." + "</p>");
+      $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
+    } else {
+      $(".drinks").empty();
+      $(".info").empty();
+    }
 
     // Constructing a URL to search cocktail db
     queryURL2 = "http://api.malt.io/v1/public/recipes?detail=true&slugs=" + dropDownDrink;
@@ -133,7 +148,7 @@ $(".drinks").on("click", '.nonAlcoholic', function() {
     // Performing our AJAX GET request to get the missing info
     ajaxDrink(queryURL);
 
-//    $('.popUp').show();
+    //    $('.popUp').show();
     // Get the modal
     var modal = document.getElementById('myModal');
 
@@ -165,31 +180,31 @@ $(".drinks").on("click", '.nonAlcoholic', function() {
 
 //returns a list of drinks from the cocktaildb
 var ajaxList = function(queryURL) {
-    $.ajax({
-            url: queryURL,
-            method: "GET"
-        })
-        // using the queryURL from click listener that called it
-        .done(function(response) {
-            // Storing an array of results in the results variable
+        $.ajax({
+                url: queryURL,
+                method: "GET"
+            })
+            // using the queryURL from click listener that called it
+            .done(function(response) {
+                // Storing an array of results in the results variable
 
-            database.ref().set({
-                currentDrinks: response
+                database.ref().set({
+                    currentDrinks: response
+                });
+
+                store = response;
+                // Looping over every result item
+                for (var i = 0; i < response.drinks.length; i++) {
+
+                    //we give this a class of hasAlcohol to determine if we need
+                    //to use the default search or special case in the future
+                    //the data-number is where it appears in the array
+                    $('.drinks').append("<li><a class = '" + hasAlcohol + "' data-number = '" + i + "'>" + response.drinks[i].strDrink + "</a></li>");
+
+                }
             });
-
-            store = response;
-            // Looping over every result item
-            for (var i = 0; i < response.drinks.length; i++) {
-
-                //we give this a class of hasAlcohol to determine if we need
-                //to use the default search or special case in the future
-                //the data-number is where it appears in the array
-                $('.drinks').append("<li><a class = '"+ hasAlcohol +"' data-number = '"+ i +"'>" + response.drinks[i].strDrink + "</a></li>");
-
-            }
-        });
-}
-//returns a list of beers
+    }
+    //returns a list of beers
 var ajaxList2 = function(queryURL2) {
     $.ajax({
             url: queryURL2,
@@ -216,55 +231,55 @@ var firebaseDrink = function(number) {
     var selectDrink;
 
     //jump to firebase
-    firebase.database().ref().once('value').then(function(snapshot){
+    firebase.database().ref().once('value').then(function(snapshot) {
 
         //finds the drink clicked on by the data-number property
         selectDrink = snapshot.val().currentDrinks.drinks[number];
 
-            //this remains true as long as the currentIngredient is not equal
-            //to '', which means there are no more ingredients
-            var moreIngredients = true;
-            //i starts as 1 because there is no strIngredient0
-            var i = 1;
-            //holds the current ingredient
-            var currentIngredient = '';
-            //holds the current measure
-            var currentMeasure = '';
+        //this remains true as long as the currentIngredient is not equal
+        //to '', which means there are no more ingredients
+        var moreIngredients = true;
+        //i starts as 1 because there is no strIngredient0
+        var i = 1;
+        //holds the current ingredient
+        var currentIngredient = '';
+        //holds the current measure
+        var currentMeasure = '';
 
-            // returns a picture if there is a picture, or we add a default
-            if (selectDrink.strDrinkThumb == '' || selectDrink.strDrinkThumb == null) {
-                //default image
-                console.log('<img src = "assets/imgages/' + dropDownDrink + '.jpg"></img>');
-            } else {
-                //pulls image from the database
-                console.log('<img src = "' + selectDrink.strDrinkThumb + '"></img>');
+        // returns a picture if there is a picture, or we add a default
+        if (selectDrink.strDrinkThumb == '' || selectDrink.strDrinkThumb == null) {
+            //default image
+            console.log('<img src = "assets/imgages/' + dropDownDrink + '.jpg"></img>');
+        } else {
+            //pulls image from the database
+            console.log('<img src = "' + selectDrink.strDrinkThumb + '"></img>');
+        }
+
+        //While there is an ingredient we continue to loop
+        while (moreIngredients) {
+
+            //grab ingredient number i
+            currentIngredient = 'selectDrink.strIngredient' + i;
+            //grab measurement number i
+            currentMeasure = 'selectDrink.strMeasure' + i;
+
+            //go to the next ingredient for the next loop through
+            i++;
+
+            //if there is no current ingredient, then we break out of the loop
+            if (eval(currentIngredient) === '') {
+                moreIngredients = false;
+                //returns instructions
+                console.log(selectDrink.strInstructions);
+                //exits the loop
+                return;
             }
 
-            //While there is an ingredient we continue to loop
-            while (moreIngredients) {
+            //returns the current ingredient
+            console.log(eval(currentMeasure) + eval(currentIngredient));
+        }
 
-                //grab ingredient number i
-                currentIngredient = 'selectDrink.strIngredient' + i;
-                //grab measurement number i
-                currentMeasure = 'selectDrink.strMeasure' + i;
-
-                //go to the next ingredient for the next loop through
-                i++;
-
-                //if there is no current ingredient, then we break out of the loop
-                if (eval(currentIngredient) === '') {
-                    moreIngredients = false;
-                    //returns instructions
-                    console.log(selectDrink.strInstructions);
-                    //exits the loop
-                    return;
-                }
-
-                //returns the current ingredient
-                console.log(eval(currentMeasure) + eval(currentIngredient));
-            }
-
-        });
+    });
 }
 
 //the non-alcoholic search requires more information, so we do another ajax call
