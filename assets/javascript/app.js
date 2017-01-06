@@ -81,8 +81,13 @@ $(".drinks").on("click", '.alcoholic', function() {
     // In this case, the "this" keyword refers to the specific drink that was clicked
     var number = $(this).data('number');
 
+    //calls the popup and empties the old values
+    callModal();
+    
     //uses the database to search -- the normal query returns all needed info
     storedDrink(number);
+
+    
 });
 
 //Listens for clicks on specific drinks that used the non-alcoholic search
@@ -95,11 +100,26 @@ $(".drinks").on("click", '.nonAlcoholic', function() {
     drinkSearch = this.outerText;
     // Constructing a URL to search cocktail db, the term comes from the clicked html
     queryURL = "http://www.thecocktaildb.com/api/json/v1/6526/search.php?s=" + drinkSearch;
-
+    
+    //calls the popup and empties the old values
+    callModal();
+    
     // Performing our AJAX GET request to get the missing info
     ajaxDrink(queryURL);
 
-//    $('.popUp').show();
+    
+});
+
+var callModal = function(){
+
+    //empty the values from the last clicked on drink
+    $(".modal-title").empty();
+    $(".modal-body").empty();
+    $(".modal-footer").empty();
+    $(".modal-subfooter").empty();
+
+
+    //    $('.popUp').show();
     // Get the modal
     var modal = document.getElementById('myModal');
 
@@ -125,9 +145,7 @@ $(".drinks").on("click", '.nonAlcoholic', function() {
             modal.style.display = "none";
         }
     }
-
-
-});
+}
 
 //returns a list of drinks from the cocktaildb
 var ajaxList = function(queryURL) {
@@ -165,51 +183,59 @@ var storedDrink = function(number) {
 
     
         
-        //finds the drink clicked on by the data-number property
-        selectDrink = currentDrinks.drinks[number];
+    //finds the drink clicked on by the data-number property
+    selectDrink = currentDrinks.drinks[number];
 
-        //this remains true as long as the currentIngredient is not equal
-        //to '', which means there are no more ingredients
-        var moreIngredients = true;
-        //i starts as 1 because there is no strIngredient0
-        var i = 1;
-        //holds the current ingredient
-        var currentIngredient = '';
-        //holds the current measure
-        var currentMeasure = '';
+    $(".modal-title").html(selectDrink.strDrink);
 
-        // returns a picture if there is a picture, or we add a default
-        if (selectDrink.strDrinkThumb == '' || selectDrink.strDrinkThumb == null) {
-            //default image
-            console.log('<img src = "assets/imgages/' + dropDownDrink + '.jpg"></img>');
-        } else {
-            //pulls image from the database
-            console.log('<img src = "' + selectDrink.strDrinkThumb + '"></img>');
+    //this remains true as long as the currentIngredient is not equal
+    //to '', which means there are no more ingredients
+    var moreIngredients = true;
+    //i starts as 1 because there is no strIngredient0
+    var i = 1;
+    //holds the current ingredient
+    var currentIngredient = '';
+    //holds the current measure
+    var currentMeasure = '';
+
+    // returns a picture if there is a picture, or we add a default
+    if (selectDrink.strDrinkThumb == '' || selectDrink.strDrinkThumb == null) {
+        //default image
+        //console.log('<img src = "assets/imgages/' + dropDownDrink + '.jpg"></img>');
+        $(".modal-body").html('<img src = "assets/image/' + dropDownDrink + '.jpg"></img>');
+
+    } else {
+        //pulls image from the database
+        //console.log('<img src = "' + selectDrink.strDrinkThumb + '"></img>');
+        $(".modal-body").html('<img src = "' + selectDrink.strDrinkThumb + '" style="width: 250px; height:250px;"></img>');
+    
+    }
+
+    //While there is an ingredient we continue to loop
+    while (moreIngredients) {
+
+        //grab ingredient number i
+        currentIngredient = 'selectDrink.strIngredient' + i;
+        //grab measurement number i
+        currentMeasure = 'selectDrink.strMeasure' + i;
+
+        //go to the next ingredient for the next loop through
+        i++;
+
+        //if there is no current ingredient, then we break out of the loop
+        if (eval(currentIngredient) === '') {
+            moreIngredients = false;
+            //returns instructions
+            //console.log(selectDrink.strInstructions);
+            $(".modal-footer").append(selectDrink.strInstructions);
+            //exits the loop
+            return;
         }
 
-        //While there is an ingredient we continue to loop
-        while (moreIngredients) {
-
-            //grab ingredient number i
-            currentIngredient = 'selectDrink.strIngredient' + i;
-            //grab measurement number i
-            currentMeasure = 'selectDrink.strMeasure' + i;
-
-            //go to the next ingredient for the next loop through
-            i++;
-
-            //if there is no current ingredient, then we break out of the loop
-            if (eval(currentIngredient) === '') {
-                moreIngredients = false;
-                //returns instructions
-                console.log(selectDrink.strInstructions);
-                //exits the loop
-                return;
-            }
-
-            //returns the current ingredient
-            console.log(eval(currentMeasure) + eval(currentIngredient));
-        }
+        //returns the current ingredient
+        //console.log(eval(currentMeasure) + eval(currentIngredient));
+        $(".modal-subfooter").append(eval(currentMeasure) + eval(currentIngredient) + '</br>');
+    }
 }
 
 //the non-alcoholic search requires more information, so we do another ajax call
@@ -224,6 +250,8 @@ var ajaxDrink = function(queryURL) {
 
             store = response;
 
+            $(".modal-title").html(response.drinks[0].strDrink);
+
             //this remains true as long as the currentIngredient is not equal
             //to '', which means there are no more ingredients
             var moreIngredients = true;
@@ -237,11 +265,11 @@ var ajaxDrink = function(queryURL) {
             // returns a picture if there is a picture
             if (response.drinks[0].strDrinkThumb == '' || response.drinks[0].strDrinkThumb == null) {
                 //default image
-                console.log('<img src = "assets/image/' + dropDownDrink + '.jpg"></img>');
-                $(".modal-body").html('<img src = "assets/image/' + dropDownDrink + '.jpg"></img>');
+                //console.log('<img src = "assets/image/' + dropDownDrink + '.jpg"></img>');
+                $(".modal-body").html('<img src = "assets/image/' + dropDownDrink + '.jpg" style="width: 250px; height:250px;"></img>');
             } else {
                 //pulls image from the database
-                console.log('<img src = "' + response.drinks[0].strDrinkThumb + '"></img>');
+                //console.log('<img src = "' + response.drinks[0].strDrinkThumb + '"></img>');
                 $(".modal-body").html('<img src = "' + response.drinks[0].strDrinkThumb + '" style="width: 250px; height:250px;"></img>');
             }
 
@@ -260,15 +288,15 @@ var ajaxDrink = function(queryURL) {
                 if (eval(currentIngredient) === '') {
                     moreIngredients = false;
                     //returns instructions
-                    console.log(response.drinks[0].strInstructions);
+                    //console.log(response.drinks[0].strInstructions);
                     $(".modal-footer").append(response.drinks[0].strInstructions);
                     //exits the loop
                     return;
                 }
 
                 //returns the current ingredient
-                console.log(eval(currentMeasure) + eval(currentIngredient));
-                $(".modal-subfooter").append(eval(currentMeasure) + eval(currentIngredient));
+                //console.log(eval(currentMeasure) + eval(currentIngredient));
+                $(".modal-subfooter").append(eval(currentMeasure) + eval(currentIngredient) + '</br>');
             }
 
 
