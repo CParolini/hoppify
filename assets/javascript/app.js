@@ -99,7 +99,7 @@ $(".drinks").on("click", '.nonAlcoholic', function() {
     //pulls the name of the drink from the html and stores it in drinkSearch
     drinkSearch = this.outerText;
     //Searchs for ' and replaces it with &#39, so the queryURL can be read
-    drinkSearch = drinkSearch.replace(/'/i, "&#39");
+    drinkSearch = drinkSearch.replace(/'/g, "&#39");
 
     // Constructing a URL to search cocktail db, the term comes from the clicked html
     queryURL = "http://www.thecocktaildb.com/api/json/v1/6526/search.php?s=" + drinkSearch;
@@ -323,17 +323,16 @@ var database = firebase.database();
 
 //chat
 database.ref().on('child_added', function(snapshot) {
-    $('.chat').html(snapshot);
-    store = snapshot;
+    $('#chatForm').append(snapshot.val().chat);
+    //store = snapshot;
     console.log('change');
 });
-
 
 $(".chatbtn").on("click", function() {
 
     var chatMessage = $('.chat-form').val();
 
-    database.ref().push({
+    database.ref().set({
      chat: chatMessage
     });
 
