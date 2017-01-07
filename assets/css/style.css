@@ -1,3 +1,13 @@
+/*@media only screen and (max-width: 415px) {
+    body {
+        background-color: lightblue;
+    }
+    .navbar-inverse {
+        width: 100%;
+        padding-left: 3px;
+    }
+}*/
+
 .jumbotron {
     text-align: right;
     background-color: darkorange;
@@ -189,4 +199,68 @@ input {
 
 .form-control.drinkForm {
     width: 75px;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #ff8c00;
+    border-color: #ff8c00;
+}
+
+.beerClass:hover {
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 415px) {
+    .navbar-inverse {
+        width: 108%;
+        padding-left: 3px;
+        margin-left: -15px;
+        margin-top: -31px;
+    }
+    .dropdown {
+        float: left;
+    }
+    .container-fluid {
+        padding-right: 15px;
+        padding-left: 24px;
+        padding-bottom: 7px;
+    }
+    .logo {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin-top: -20px;
+        margin-right: 105px;
+    }
+    #wrapper {
+        display: none;
+    }
+    .col-xs-5 {
+        margin-left: 19px;
+    }
+    .beerImg {
+        display: none;
+    }
+    .modal-content {
+        background-color: black;
+        color: white;
+        margin: 15% auto;
+        padding: 20px;
+        border: none;
+        width: 100%;
+        text-align: center;
+        margin-top: 200px;
+    }
+    .drinkImg {
+        display: none;
+    }
+    .container {
+        text-align: center;
+    }
+    iframe {
+        margin-left: -36px;
+        width: 415px;
+        border: none;
+    }
 }
