@@ -17,19 +17,30 @@
 
 <body>
     <div class="jumbotron">
-      <img class="logo" src="assets/image/logo.png">
+        <img class="logo" src="assets/image/logo.png">
     </div>
-     <div class = 'row'>
-            <div class = 'col-md-6'>
-                <div id="wrapper">
-                    <div id = "menu">
-                        <p class="welcome">Welcome</p>
-                        <!-- <p class="logout"><a id="exit" href="#">Exit Chat</a></p> -->
-                        <div style="clear:both"></div>
-                    </div>
+    <div class="btn-group">
+        <a class="btn btn-primary" href="#"><i class="fa fa-user fa-fw"></i> User</a>
+        <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+            <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="#"><i class="fa fa-pencil fa-fw"></i> Edit</a></li>
+            <li><a href="#"><i class="fa fa-trash-o fa-fw"></i> Delete</a></li>
+            <li><a href="#"><i class="fa fa-ban fa-fw"></i> log out</a></li>
+        </ul>
+    </div>
+    <div class='row'>
+        <div class='col-md-6'>
+            <div id="wrapper">
+                <div id="menu">
+                    <p class="welcome">Welcome</p>
+                    <!-- <p class="logout"><a id="exit" href="#">Exit Chat</a></p> -->
+                    <div style="clear:both"></div>
+                </div>
 
                 <div id="chatbox">
-                    <div id = 'chatText'></div>
+                    <div id='chatText'></div>
                 </div>
 
                 <div class="input-group">
@@ -114,37 +125,37 @@
         </div>
 
 
-    <!--
+        <!--
     <div class="popUp">
         <h1>Popup</h1>
 
     </div>
     -->
-    <!-- Trigger/Open The Modal -->
+        <!-- Trigger/Open The Modal -->
 
 
-<!-- The Modal -->
-<div id="myModal" class="modal">
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
 
-  <!-- Modal content -->
-<div class="modal-content">
-  <div class="modal-header">
-    <!-- <span class="close">&times;</span> -->
-    <h2 class = 'modal-title'>Modal Header</h2>
-  </div>
-  <div class="modal-body">
-    <p>Some text in the Modal Body</p>
-    <p>Some other text...</p>
-  </div>
-  <div class="modal-footer">
-    <h3>Description</h3>
-  </div>
-  <div class = "modal-subfooter">
-    <h4>Ingredients</h4>
-</div>
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <span class="close">&times;</span> -->
+                    <h2 class='modal-title'>Modal Header</h2>
+                </div>
+                <div class="modal-body">
+                    <p>Some text in the Modal Body</p>
+                    <p>Some other text...</p>
+                </div>
+                <div class="modal-footer">
+                    <h3>Description</h3>
+                </div>
+                <div class="modal-subfooter">
+                    <h4>Ingredients</h4>
+                </div>
 
-</div>
-    <script src='assets/javascript/app.js'></script>
+            </div>
+            <script src='assets/javascript/app.js'></script>
 </body>
 
 </html>
