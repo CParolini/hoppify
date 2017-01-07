@@ -323,17 +323,17 @@ var database = firebase.database();
 
 //chat
 database.ref().on('child_added', function(snapshot) {
-    $('#chatForm').append(snapshot.val().chat);
-    //store = snapshot;
-    console.log('change');
+    $('#chatText').append('<p>' + snapshot.val().chat + '<p>');
 });
 
 $(".chatbtn").on("click", function() {
 
-    var chatMessage = $('.chat-form').val();
+    var chatMessage = $('.chatForm').val();
 
-    database.ref().set({
-     chat: chatMessage
+    console.log(chatMessage);
+
+    database.ref().push({
+        chat: chatMessage
     });
 
 });
