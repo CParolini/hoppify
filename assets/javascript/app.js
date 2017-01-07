@@ -56,8 +56,7 @@ $(".nonAlcoholic").on("click", function() {
 });
 
 // Event listener for the search bar
-$("#search").on("click", function() {
-
+$(".search").on("click", function() {
     //if the search form is blank, do not send a query
     if ($('.drinkForm').val()==''){
         return;
@@ -349,8 +348,6 @@ var enterChat = function(){
     if (!($(".chatForm").val() == "")){
     var chatMessage = $('.chatForm').val();
 
-    console.log(chatMessage);
-
 
     database.ref().push({
         chat: chatMessage
@@ -363,8 +360,6 @@ document.onkeyup = function(event) {
 
     if (event.key=="Enter"){
        enterChat();
-       console.log("hello");
     }
-    console.log(event.key);
 }
 
