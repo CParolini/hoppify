@@ -447,24 +447,7 @@ var ajaxDrink = function(queryURL) {
         });
 }
 
-//Array of images which you want to show: Use path you want.
-var images = ['assets/image/bar1.jpg', 'assets/image/bar2.jpg', 'assets/image/bar3.jpg', 'assets/image/bar4.jpg', 'assets/image/bar5.jpg'];
-var nextimage = 0;
-doSlideshow();
-
-function doSlideshow() {
-    if (nextimage >= images.length) {
-        nextimage = 0;
-    }
-    $('body')
-        .css('background-image', 'url("' + images[nextimage++] + '")')
-        .css('background-size', '50%')
-        .fadeIn(500, function() {
-            setTimeout(doSlideshow, 5000);
-        });
-}
 //click on license tab
-<<<<<<< HEAD
 $('#license').on('click', function(){
 //clear the drinks and info section
 	$('.drinks').empty();
@@ -484,26 +467,6 @@ $('#about').on('click', function(){
 	$('.info').html('<img src="assets/image/vincent.jpg">');
 	$('.drinks').html("<p>I'm Vincent Gonzalez</p>");
 })
-=======
-$('#license').on('click', function() {
-        //clear the drinks and info section
-        $('.drinks').empty();
-        $('.drinkRecipe').empty();
-        $('.info').empty();
-        //add a image link and paragraph
-        $('.info').html("<a href='https://txbartendinglicense.com/web/index.php?siteid=61&pageid=339'>" + '<img src="assets/image/tabc.jpg"' + "</a>");
-        $('.drinks').html("<p>'Learn How to be a Great Bartender!<br> This Bartender Mixology course is a great way to learn how to make hundreds of different drinks.It's a self-paced course that rated at 40 hours and contains all the information you need to know to become a great bartender and make better tip money!  This is a great certification to have on your resume, as it demonstrates that you have taken extensive training and are familiar with the drinks, terminology, and equipment involved with the bar or restaurant field of work. Click on image to get more information and GOOD LUCK!'</p>")
-    })
-    //click on about tab
-$('#about').on('click', function() {
-        //clear the drinks and info section
-        $('.drinks').empty();
-        $('.drinkRecipe').empty();
-        $('.info').empty();
-        //add a image and paragraph
-        $('.info').html('<img src="assets/image/vincent.jpg">');
-        $('.drinks').html("<p>I'm Vincent Gonzalez</p>");
-    })
     //giving the firebase location
 var config = {
     apiKey: "AIzaSyAWsHg3xzxLY3hT-WfHJJtJL3JmLqW7R8c",
@@ -536,4 +499,3 @@ $(".chatbtn").on("click", function() {
     });
 
 });
->>>>>>> 86e3f7b872d38a6ffda04b79b71a92d871e17a61
