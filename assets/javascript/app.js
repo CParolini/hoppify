@@ -214,7 +214,6 @@ $(".drinks").on("click", '.alcoholic', function() {
     //uses the database to search -- the normal query returns all needed info
     storedDrink(number);
 
-
 });
 
 //Listens for clicks on specific drinks that used the non-alcoholic search
@@ -329,9 +328,6 @@ var storedDrink = function(number) {
 
     //holds the current drink
     var selectDrink;
-
-
-
     //finds the drink clicked on by the data-number property
     selectDrink = currentDrinks.drinks[number];
 
@@ -380,7 +376,6 @@ var storedDrink = function(number) {
             //exits the loop
             return;
         }
-
         //returns the current ingredient
         //console.log(eval(currentMeasure) + eval(currentIngredient));
         $(".modal-subfooter").append(eval(currentMeasure) + eval(currentIngredient) + '</br>');
