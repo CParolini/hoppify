@@ -87,3 +87,10 @@ img {
 #go:hover{
 	color:lightgreen;
 }
+
+.btn-group {
+	position: absolute;
+	top: 0px;
+	right: 50px;
+	font-family: cursive;
+}
