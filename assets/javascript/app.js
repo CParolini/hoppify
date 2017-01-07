@@ -21,7 +21,7 @@ $(".mixMenu").on("click", function() {
     //pulls menu name
     dropDownDrink = this.outerText;
     //default image
-    $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
+    $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg' height='175' width='285' >")
 
     // Constructing a URL to search cocktail db - the search term is filled by the
     //drop down that was selected
@@ -41,7 +41,7 @@ $(".nonAlcoholic").on("click", function() {
     //pulls menu name
     dropDownDrink = this.outerText;
     //default image
-    $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
+    $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg' height='175' width='285'>")
 
     // Constructing a URL to search cocktail db - the search term is filled by the
     //drop down that was selected
