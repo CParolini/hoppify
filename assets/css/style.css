@@ -98,21 +98,37 @@ input { font:12px arial; }
    margin:0 auto;
    margin-bottom:25px;
    padding:10px;
-   background:#fff;
+   background:black;
    height:270px;
-   width:430px;
+   width:395px;
    border:1px solid #ACD8F0 ;
    overflow:auto; 
+   color: white;
 
  }
  #wrapper {
   margin-left: 115%;
   position: absolute;
+  width: 395px;
+  background-color: darkorange;
+
+
  }
  
 #usermsg {
    width:395px;
-   border:1px solid #ACD8F0 ; }
+   border:1px solid #ACD8F0 ; 
+   
+ }
+ .form-control {
+  background:black;
+  color: white;
+ }
+ .btn-default {
+  background:black;
+  color: white;
+ }
+
  
 #submit { width: 60px; }
  

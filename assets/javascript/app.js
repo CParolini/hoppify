@@ -328,12 +328,32 @@ database.ref().on('child_added', function(snapshot) {
 
 $(".chatbtn").on("click", function() {
 
+   enterChat();
+
+
+
+});
+
+var enterChat = function(){
+    
+    if (!($(".chatForm").val() == "")){
     var chatMessage = $('.chatForm').val();
 
     console.log(chatMessage);
 
+
     database.ref().push({
         chat: chatMessage
     });
+    }    
+}
 
-});
+document.onkeyup = function(event) {
+
+    if (event.key=="Enter"){
+       enterChat();
+       console.log("hello");
+    }
+    console.log(event.key);
+}
+
