@@ -31,7 +31,7 @@ $(".mixMenu").on("click", function() {
 
     // Constructing a URL to search cocktail db - the search term is filled by the
     //drop down that was selected
-    queryURL = "https://www.thecocktaildb.com/api/json/v1/6526/search.php?s=" + dropDownDrink;
+    queryURL = "http://www.thecocktaildb.com/api/json/v1/6526/search.php?s=" + dropDownDrink;
 
     //uses the defulat query
     hasAlcohol = 'alcoholic';
@@ -51,7 +51,7 @@ $(".nonAlcoholic").on("click", function() {
 
     // Constructing a URL to search cocktail db - the search term is filled by the
     //drop down that was selected
-    queryURL = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic";
+    queryURL = "http://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic";
 
     //special search case, this will cause a different function to be called
     //when a nonAlcoholic drink is clicked
@@ -74,7 +74,7 @@ $(".search").on("click", function() {
     var searchFor = $('.drinkForm').val();
 
     // Constructing a URL to search cocktail db
-    var queryURL = "https://www.thecocktaildb.com/api/json/v1/6526/search.php?s=" + searchFor;
+    var queryURL = "http://www.thecocktaildb.com/api/json/v1/6526/search.php?s=" + searchFor;
 
     //default search, this works for any type of drink (alcoholic or not)
     //because the url we use above
@@ -95,7 +95,7 @@ $("#search").on("click", function() {
     drinkName = searchFor.toLowerCase().replace(/ /g, "-");
     console.log(drinkName);
     // Constructing a URL to search cocktail db
-    var queryURL2 = "https://api.malt.io/v1/public/recipes?detail=true&slugs=" + drinkName;
+    var queryURL2 = "http://api.malt.io/v1/public/recipes?detail=true&slugs=" + drinkName;
 
     // Performing our AJAX GET request
     ajaxList2(queryURL2);
@@ -124,7 +124,7 @@ $(".beerMenu").on("click", function() {
     dropDownDrink = this.outerText;
     drinkName = dropDownDrink.toLowerCase().replace(/ /g, "-");
     // Constructing a URL to search cocktail db
-    queryURL2 = "https://api.malt.io/v1/public/recipes?detail=true&slugs=" + drinkName;
+    queryURL2 = "http://api.malt.io/v1/public/recipes?detail=true&slugs=" + drinkName;
     if (dropDownDrink === "American Pale Ale") {
         $(".drinks").html("<h1 class='beerClass'>" + dropDownDrink + "</h1>");
         $(".drinks").append("<p class='time'>Total time until able to drink 28 days!</p>" + "<hr>");
@@ -165,7 +165,7 @@ $(".drinks").on("click", '.beerClass', function() {
     // dropDownDrink = this.outerText;
     // drinkName = dropDownDrink.toLowerCase().replace(/ /g, "-");
     // // Constructing a URL to search cocktail db
-    // url = "https://api.malt.io/v1/public/recipes?detail=true&slugs=" + drinkName;
+    // url = "http://api.malt.io/v1/public/recipes?detail=true&slugs=" + drinkName;
     // console.log(url);
 
     callModal();
@@ -199,7 +199,7 @@ $(".drinks").on("click", '.nonAlcoholic', function() {
     drinkSearch = drinkSearch.replace(/'/g, "&#39");
 
     // Constructing a URL to search cocktail db, the term comes from the clicked html
-    queryURL = "https://www.thecocktaildb.com/api/json/v1/6526/search.php?s=" + drinkSearch;
+    queryURL = "http://www.thecocktaildb.com/api/json/v1/6526/search.php?s=" + drinkSearch;
 
     //calls the popup and empties the old values
     callModal();
@@ -441,7 +441,7 @@ var ajaxDrink = function(queryURL) {
 var config = {
     apiKey: "AIzaSyAWsHg3xzxLY3hT-WfHJJtJL3JmLqW7R8c",
     authDomain: "hoppify-1bdea.firebaseapp.com",
-    databaseURL: "https://hoppify-1bdea.firebaseio.com",
+    databaseURL: "http://hoppify-1bdea.firebaseio.com",
     storageBucket: "hoppify-1bdea.appspot.com",
     messagingSenderId: "939603520664"
 };
