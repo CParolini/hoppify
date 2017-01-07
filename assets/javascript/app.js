@@ -22,7 +22,7 @@ $(".mixMenu").on("click", function() {
     //pulls menu name
     dropDownDrink = this.outerText;
     //default image
-    $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
+    $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg' height='175' width='285' >")
 
     // Constructing a URL to search cocktail db - the search term is filled by the
     //drop down that was selected
@@ -42,7 +42,7 @@ $(".nonAlcoholic").on("click", function() {
     //pulls menu name
     dropDownDrink = this.outerText;
     //default image
-    $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
+    $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg' height='175' width='285'>")
 
     // Constructing a URL to search cocktail db - the search term is filled by the
     //drop down that was selected
@@ -59,8 +59,12 @@ $(".nonAlcoholic").on("click", function() {
 // Event listener for the search bar
 $("#search").on("click", function() {
 
+    //if the search form is blank, do not send a query
+    if ($('.drinkForm').val()==''){
+        return;
+    }
     //search term is pulled from the search bar
-    var searchFor = $('.form-control').val();
+    var searchFor = $('.drinkForm').val();
 
     // Constructing a URL to search cocktail db
     var queryURL = "http://www.thecocktaildb.com/api/json/v1/6526/search.php?s=" + searchFor;
@@ -182,7 +186,7 @@ $(".drinks").on("click", '.nonAlcoholic', function() {
     //pulls the name of the drink from the html and stores it in drinkSearch
     drinkSearch = this.outerText;
     //Searchs for ' and replaces it with &#39, so the queryURL can be read
-    drinkSearch = drinkSearch.replace(/'/i, "&#39");
+    drinkSearch = drinkSearch.replace(/'/g, "&#39");
 
     // Constructing a URL to search cocktail db, the term comes from the clicked html
     queryURL = "http://www.thecocktaildb.com/api/json/v1/6526/search.php?s=" + drinkSearch;
@@ -324,13 +328,12 @@ var storedDrink = function(number) {
     if (selectDrink.strDrinkThumb == '' || selectDrink.strDrinkThumb == null) {
         //default image
         //console.log('<img src = "assets/imgages/' + dropDownDrink + '.jpg"></img>');
-        $(".modal-body").html('<img src = "assets/image/' + dropDownDrink + '.jpg"></img>');
+        $(".modal-body").html('<img src = "assets/image/' + dropDownDrink + '.jpg" height="175" width="285"></img>');
 
     } else {
         //pulls image from the database
         //console.log('<img src = "' + selectDrink.strDrinkThumb + '"></img>');
-        $(".modal-body").html('<img src = "' + selectDrink.strDrinkThumb + '" style="width: 250px; height:250px;"></img>');
-
+        $(".modal-body").html('<img src = "' + selectDrink.strDrinkThumb + '" style="width: 285px; height:175px;"></img>');
     }
 
     //While there is an ingredient we continue to loop
@@ -387,11 +390,11 @@ var ajaxDrink = function(queryURL) {
             if (response.drinks[0].strDrinkThumb == '' || response.drinks[0].strDrinkThumb == null) {
                 //default image
                 //console.log('<img src = "assets/image/' + dropDownDrink + '.jpg"></img>');
-                $(".modal-body").html('<img src = "assets/image/' + dropDownDrink + '.jpg" style="width: 250px; height:250px;"></img>');
+                $(".modal-body").html('<img src = "assets/image/' + dropDownDrink + '.jpg" style="width: 285px; height:175px;"></img>');
             } else {
                 //pulls image from the database
                 //console.log('<img src = "' + response.drinks[0].strDrinkThumb + '"></img>');
-                $(".modal-body").html('<img src = "' + response.drinks[0].strDrinkThumb + '" style="width: 250px; height:250px;"></img>');
+                $(".modal-body").html('<img src = "' + response.drinks[0].strDrinkThumb + '" style="width: 285px; height:175px;"></img>');
             }
 
             //While there is an ingredient we continue to loop
@@ -439,20 +442,45 @@ firebase.initializeApp(config);
 //storing the database in a variable
 var database = firebase.database();
 
-//chat
+//listens for a change, then adds new text on change
 database.ref().on('child_added', function(snapshot) {
-    $('.chat').html(snapshot);
-    store = snapshot;
-    console.log('change');
+    $('#chatText').append('<p>' + snapshot.val().chat + '<p>');
 });
 
+// //Trying to autoscroll down -- This does not work yet
+// function updateScroll(){
+//     var element = document.getElementById("chatText");
+//     element.scrollTop = element.scrollHeight;
+// }
 
 $(".chatbtn").on("click", function() {
 
-    var chatMessage = $('.chat-form').val();
+   enterChat();
+
+
+
+});
+
+var enterChat = function(){
+
+    if (!($(".chatForm").val() == "")){
+    var chatMessage = $('.chatForm').val();
+
+    console.log(chatMessage);
+
 
     database.ref().push({
         chat: chatMessage
     });
+    $('.chatForm').val('');
+    }
+}
 
-});
+document.onkeyup = function(event) {
+
+    if (event.key=="Enter"){
+       enterChat();
+       console.log("hello");
+    }
+    console.log(event.key);
+}
