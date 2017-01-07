@@ -1,13 +1,13 @@
 .jumbotron {
-	font-family: 'Ewert', cursive; 
+	font-family: 'Ewert', cursive;
 	text-align: center;
 	background-color: darkorange;
 }
-.drinkRecipe{
+.alcoholic{
 	color:white;
 	font-size: 15px;
 }
-.drinkRecipe:hover {
+.alcoholic:hover {
 	color:white;
 	font-size: 25px;
 	cursor:pointer;
@@ -87,6 +87,7 @@ img {
 #go:hover{
 	color:lightgreen;
 }
+<<<<<<< HEAD
 
 .btn-group {
 	position: absolute;
@@ -94,3 +95,60 @@ img {
 	right: 50px;
 	font-family: cursive;
 }
+=======
+.popUp {
+
+	background: black;
+	max-width: 33%;
+	text-align: center;
+	margin-left: 40%;
+}
+
+.logo{
+	background-color: white;
+	opacity: 1;
+}
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    z-index: 3;
+}
+.modal-footer {
+    text-align: center;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    top: -245px;
+    background-color: black;
+    color: white;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    text-align: center;
+}
+
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+>>>>>>> 86e3f7b872d38a6ffda04b79b71a92d871e17a61
