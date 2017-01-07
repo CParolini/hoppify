@@ -8,6 +8,23 @@
 	max-width: 33%;
 	text-align: center;
 	margin-left: 40%; 
+
+}
+.navbar-inverse {
+    width: 35%;
+    
+}
+.chat-form {
+    margin-left: 75%;
+}
+#search {
+    margin-left: 75%;
+}
+
+.logo{
+	background-color: white;
+	opacity: 1;
+
 }
 .modal {
     display: none; /* Hidden by default */
@@ -28,7 +45,8 @@
 
 /* Modal Content/Box */
 .modal-content {
-    top: -145px;
+
+    top: -130px;
     background-color: black;
     color: white;
     margin: 15% auto; /* 15% from the top and centered */
@@ -66,7 +84,10 @@ input { font:12px arial; }
    padding-bottom:25px;
    background:#EBF4FB ;
    width:504px;
-   border:1px solid #ACD8F0 ; }
+   border:1px solid #ACD8F0 ; 
+
+ }
+
  
 #loginform { padding-top:18px; }
  
@@ -81,7 +102,13 @@ input { font:12px arial; }
    height:270px;
    width:430px;
    border:1px solid #ACD8F0 ;
-   overflow:auto; }
+   overflow:auto; 
+
+ }
+ #wrapper {
+  margin-left: 115%;
+  position: absolute;
+ }
  
 #usermsg {
    width:395px;
@@ -91,7 +118,9 @@ input { font:12px arial; }
  
 .error { color: #ff0000 ; }
  
-#menu { padding:12.5px 25px 12.5px 25px; }
+#menu { padding:12.5px 25px 12.5px 25px; 
+
+}
  
 .welcome { float:left; }
  
