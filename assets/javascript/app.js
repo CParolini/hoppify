@@ -23,7 +23,7 @@ $(".mixMenu").on("click", function() {
     //pulls menu name
     dropDownDrink = this.outerText;
     //default image
-    $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg' height='175' width='285' >")
+    $(".info").html("<img class='drinkImg' src='assets/image/" + dropDownDrink + ".jpg' height='175' width='285' >")
 
     // Constructing a URL to search cocktail db - the search term is filled by the
     //drop down that was selected
@@ -122,22 +122,32 @@ $(".beerMenu").on("click", function() {
     // Constructing a URL to search cocktail db
     queryURL2 = "http://api.malt.io/v1/public/recipes?detail=true&slugs=" + drinkName;
     if (dropDownDrink === "American Pale Ale") {
-        $(".drinks").html("<h1 class='beerClass'>" + dropDownDrink + "</a>" + "</h1>");
+        $(".drinks").html("<h1 class='beerClass'>" + dropDownDrink + "</h1>");
+        $(".drinks").append("<p class='time'>Total time until able to drink 28 days!</p>" + "<hr>");
         $(".drinks").append("<p>" + "American Pale Ale is of British origin, this style is now popular worldwide and the use of local ingredients, or imported, produces variances in character from region to region.Generally, expect a good balance of malt and hops.Fruity esters and diacetyl can vary from none to moderate, and bitterness can range from lightly floral to pungent." + "</p>");
-        $(".drinks").append("<h2>Ingredients:</h2>" + "<h3>Spices:</h3>" + "<li>Chinook</li>");
-        $(".drinks").append("<h2>Steps:</h2>");
+        $(".drinks").append("<h2>Ingredients:</h2>" + "<h3>Fermentable:</h3>" + "<li>Pale liquid extract: 4kg</li>" + "<li>Caramel 60L: 0.25 lbs.</li>" + "<h3>Spices:</h3>" + "<li>Chinook: 18g</li>" + "<li>Citra: 28g</li>" + "<li>Cascade: 28g</li>" + "<h3>Yeast:</h3>" + "<li>Wyeast 1056 - American Ale</li>");
+        $(".drinks").append("<h2>Steps:</h2>" + "<li>Heat Water to 154.4°F </li>" + "<li>Add 0.3kg of Caramel 60L and steep for 20 minutes.</li>" + "<li>Top up the wort to 10.0l and heat to a rolling boil (about 20 minutes).</li>" + "<li>Add 4.0kg of Pale liquid extract, 18g of Chinook</li>" + "<li>Add 28g of Citra</li>" + "<li>Add 28g of Cascade</li>" + "<li>Flame out; begin chilling to 68.0°F</li>" + "<li>Chilling complete aerate, pitch Wyeast 1056, seal fermenter and let sit for 14 days</li>" + "<li>Prime and bottle (about 56 bottles)</li>" + "<li>Relax, don't worry, and have a homebrew after 14 days!</li>");
         $(".info").html("<img class='beerImg' src='assets/image/" + dropDownDrink + ".jpg'>");
     } else if (dropDownDrink === "Dark Beer") {
         $(".drinks").html("<h1 class='beerClass'>" + dropDownDrink + "</h1>");
+        $(".drinks").append("<p class='time'>Total time until able to drink 28 days!</p>" + "<hr>");
         $(".drinks").append("<p>" + "Dark beer is made using roasted malt or roasted barley, hops, water and yeast. Stouts were traditionally the generic term for the strongest or stoutest porters, typically 7% or 8%, produced by a brewery." + "</p>");
+        $(".drinks").append("<h2>Ingredients:</h2>" + "<h3>Fermentable:</h3>" + "<li>Pale liquid extract: 4kg</li>" + "<li>Chocolate: 0.75kg</li>" + "<h3>Spices:</h3>" + "<li>Cascade: 28g * 3</li>" + "<h3>Yeast:</h3>" + "<li>Wyeast 3711 - French Saison</li>");
+        $(".drinks").append("<h2>Steps:</h2>" + "<li>Heat Water to 154.4°F </li>" + "<li>Add 0.8kg of Chocolate and steep for 20 minutes.</li>" + "<li>Top up the wort to 10.0l and heat to a rolling boil.</li>" + "<li>Add 4.0kg of Pale liquid extract, 28g of Cascade for 30 Minutes</li>" + "<li>Wait 10 Minutes Add 28g of Cascade for 20 minutes</li>" + "<li>Wait 10 Minutes Add 28g of Cascade for 10 Minutes</li>" + "<li>Flame out; begin chilling to 68.0°F</li>" + "<li>Chilling complete aerate, pitch Wyeast 3711, seal fermenter and age at 68°F for 14 days</li>" + "<li>Prime and bottle (about 56 bottles)</li>" + "<li>Relax, don't worry, and have a homebrew after 14 days!</li>");
         $(".info").html("<img class='beerImg' src='assets/image/" + dropDownDrink + ".jpg'>");
     } else if (dropDownDrink === "Hefeweizen") {
         $(".drinks").html("<h1 class='beerClass'>" + dropDownDrink + "</h1>");
+        $(".drinks").append("<p class='time'>Total time until able to drink 28 days!</p>" + "<hr>");
         $(".drinks").append("<p>" + "Another name for Weissbier. 'Hefe' means yeast, and 'Weizen' means wheat, so Hefeweizen is 'yeast wheat.' Germans prefer to call the brew Weissbier, while North Americans prefer the term Hefeweizen. The beer is yeast turbid, because it is unfiltered." + "</p>");
+        $(".drinks").append("<h2>Ingredients:</h2>" + "<h3>Fermentable:</h3>" + "<li>Pale liquid extract: 4kg</li>" + "<li>Chocolate: 0.75kg</li>" + "<h3>Spices:</h3>" + "<li>Cascade: 28g * 3</li>" + "<h3>Yeast:</h3>" + "<li>Wyeast 3711 - French Saison</li>");
+        $(".drinks").append("<h2>Steps:</h2>" + "<li>Heat Water to 154.4°F </li>" + "<li>Add 0.8kg of Chocolate and steep for 20 minutes.</li>" + "<li>Top up the wort to 10.0l and heat to a rolling boil.</li>" + "<li>Add 4.0kg of Pale liquid extract, 28g of Cascade for 30 Minutes</li>" + "<li>Wait 10 Minutes Add 28g of Cascade for 20 minutes</li>" + "<li>Wait 10 Minutes Add 28g of Cascade for 10 Minutes</li>" + "<li>Flame out; begin chilling to 68.0°F</li>" + "<li>Chilling complete aerate, pitch Wyeast 3711, seal fermenter and age at 68°F for 14 days</li>" + "<li>Prime and bottle (about 56 bottles)</li>" + "<li>Relax, don't worry, and have a homebrew after 14 days!</li>");
         $(".info").html("<img class='beerImg' src='assets/image/" + dropDownDrink + ".jpg'>");
     } else if (dropDownDrink === "Irish Red") {
         $(".drinks").html("<h1 class='beerClass'>" + dropDownDrink + "</h1>");
+        $(".drinks").append("<p class='time'>Total time until able to drink 28 days!</p>" + "<hr>");
         $(".drinks").append("<p>" + "Irish Red Ale is an ale originating in Ireland that has a reddish hue from the inclusion of a small amount of roasted barley. In America, some darker amber ales and ales with artificial coloring are also labeled as red ales." + "</p>");
+        $(".drinks").append("<h2>Ingredients:</h2>" + "<h3>Fermentable:</h3>" + "<li>Pale liquid extract: 4kg</li>" + "<li>Chocolate: 0.75kg</li>" + "<h3>Spices:</h3>" + "<li>Cascade: 28g * 3</li>" + "<h3>Yeast:</h3>" + "<li>Wyeast 3711 - French Saison</li>");
+        $(".drinks").append("<h2>Steps:</h2>" + "<li>Heat Water to 154.4°F </li>" + "<li>Add 0.8kg of Chocolate and steep for 20 minutes.</li>" + "<li>Top up the wort to 10.0l and heat to a rolling boil.</li>" + "<li>Add 4.0kg of Pale liquid extract, 28g of Cascade for 30 Minutes</li>" + "<li>Wait 10 Minutes Add 28g of Cascade for 20 minutes</li>" + "<li>Wait 10 Minutes Add 28g of Cascade for 10 Minutes</li>" + "<li>Flame out; begin chilling to 68.0°F</li>" + "<li>Chilling complete aerate, pitch Wyeast 3711, seal fermenter and age at 68°F for 14 days</li>" + "<li>Prime and bottle (about 56 bottles)</li>" + "<li>Relax, don't worry, and have a homebrew after 14 days!</li>");
         $(".info").html("<img class='beerImg' src='assets/image/" + dropDownDrink + ".jpg'>");
     } else {
         $(".drinks").empty();
@@ -148,11 +158,11 @@ $(".beerMenu").on("click", function() {
 // beer modal
 $(".drinks").on("click", '.beerClass', function() {
     //stores the name of the drink
-    dropDownDrink = this.outerText;
-    drinkName = dropDownDrink.toLowerCase().replace(/ /g, "-");
-    // Constructing a URL to search cocktail db
-    url = "http://api.malt.io/v1/public/recipes?detail=true&slugs=" + drinkName;
-    console.log(url);
+    // dropDownDrink = this.outerText;
+    // drinkName = dropDownDrink.toLowerCase().replace(/ /g, "-");
+    // // Constructing a URL to search cocktail db
+    // url = "http://api.malt.io/v1/public/recipes?detail=true&slugs=" + drinkName;
+    // console.log(url);
 
     callModal();
 
@@ -272,16 +282,27 @@ var ajaxList2 = function(queryURL2) {
 
             store = response;
             // Looping over every result item
-            for (var i = 0; i < response.length; i++) {
-                // console.log(response[i].data);
-                $('.drinks').append("<li><a class = 'drinkRecipe'>" + response[i].data.name + "</a></li>");
-                $(".modal-body").html("<img src='assets/image/" + dropDownDrink + ".jpg'>");
-                // $(".modal-header").html(response[i].data.name);
-                $(".modal-header").html("<h1>" + dropDownDrink + "</h1>");
-                $(".modal-footer").html("<h2>Ingredients:</h2>" + "<h3>Spices:</h3>" + "<li>Chinook</li>");
-                $(".modal-subfooter").html("<h2>Steps:</h2>");
-
+            // for (var i = 0; i < response.length; i++) {
+            // console.log(response[i].data);
+            // $('.drinks').append("<li><a class = 'drinkRecipe'>" + response[i].data.name + "</a></li>");
+            // $(".modal-body").html("<img src='assets/image/" + dropDownDrink + ".jpg'>");
+            if (dropDownDrink === 'American Pale Ale') {
+                $(".modal-body").html("<iframe width='420' height='315'src='https://www.youtube.com/embed/ZCy1cXeHDTQ'>" + "</iframe>");
+            } else if (dropDownDrink === 'Dark Beer') {
+                $(".modal-body").html("<iframe width='420' height='315'src='https://www.youtube.com/embed/SrPi4y9lOmc'>" + "</iframe>");
+            } else if (dropDownDrink === 'Hefeweizen') {
+                $(".modal-body").html("<iframe width='420' height='315'src='https://www.youtube.com/embed/EPfCTNiEggc'>" + "</iframe>");
+            } else if (dropDownDrink === 'Irish Red') {
+                $(".modal-body").html("<iframe width='420' height='315'src='https://www.youtube.com/embed/sTkwdIq7KSw'>" + "</iframe>");
+            } else {
+                return false;
             }
+            // $(".modal-header").html(response[i].data.name);
+            // $(".modal-header").html("<h1>" + dropDownDrink + "</h1>");
+            // $(".modal-footer").html("<h2>Ingredients:</h2>" + "<h3>Spices:</h3>" + "<li>Chinook</li>");
+            // $(".modal-subfooter").html("<h2>Steps:</h2>");
+
+            // }
         });
 }
 
