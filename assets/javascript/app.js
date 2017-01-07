@@ -112,25 +112,26 @@ $("#search").on("click", function() {
 
 $(".beerMenu").on("click", function() {
     // In this case, the "this" keyword refers to the button that was clicked
-    dropDownDrink = this.outerText;
+    dropDownDrink = this.outerText.toLowerCase();
+    drinkName= dropDownDrink.replace(/ /g, "-");
     // Constructing a URL to search cocktail db
-    queryURL2 = "http://api.malt.io/v1/public/recipes?detail=true&slugs=" + dropDownDrink;
+    queryURL2 = "http://api.malt.io/v1/public/recipes?detail=true&slugs=" + drinkName;
     console.log(queryURL2);
     // console.log(queryURL2);
     // $(".drinks").html("<h1 class=" + dropDownDrink + ">" + "<a href='http://api.malt.io/v1/public/recipes?detail=true&slugs=american-pale-ale'>" + dropDownDrink + "</a>" + "</h1>");
-    if (dropDownDrink === "American Pale Ale") {
+    if (dropDownDrink === "american pale ale") {
         $(".drinks").html("<h1 class='beerClass'>" + dropDownDrink + "</a>" + "</h1>");
         $(".drinks").append("<p>" + "American Pale Ale is of British origin, this style is now popular worldwide and the use of local ingredients, or imported, produces variances in character from region to region.Generally, expect a good balance of malt and hops.Fruity esters and diacetyl can vary from none to moderate, and bitterness can range from lightly floral to pungent." + "</p>");
         $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>");
-    } else if (dropDownDrink === "Dark Beer") {
+    } else if (dropDownDrink === "dark beer") {
         $(".drinks").html("<h1 class='beerClass'>" + dropDownDrink + "</h1>");
         $(".drinks").append("<p>" + "Dark beer is made using roasted malt or roasted barley, hops, water and yeast. Stouts were traditionally the generic term for the strongest or stoutest porters, typically 7% or 8%, produced by a brewery." + "</p>");
         $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>");
-    } else if (dropDownDrink === "Hefeweizen") {
+    } else if (dropDownDrink === "hefeweizen") {
         $(".drinks").html("<h1 class='beerClass'>" + dropDownDrink + "</h1>");
         $(".drinks").append("<p>" + "Another name for Weissbier. 'Hefe' means yeast, and 'Weizen' means wheat, so Hefeweizen is 'yeast wheat.' Germans prefer to call the brew Weissbier, while North Americans prefer the term Hefeweizen. The beer is yeast turbid, because it is unfiltered." + "</p>");
         $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>");
-    } else if (dropDownDrink === "Irish Red") {
+    } else if (dropDownDrink === "irish red") {
         $(".drinks").html("<h1 class='beerClass'>" + dropDownDrink + "</h1>");
         $(".drinks").append("<p>" + "Irish Red Ale is an ale originating in Ireland that has a reddish hue from the inclusion of a small amount of roasted barley. In America, some darker amber ales and ales with artificial coloring are also labeled as red ales." + "</p>");
         $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>");
@@ -144,31 +145,13 @@ $(".beerMenu").on("click", function() {
 
 // beer modal
 $(".drinks").on("click", '.beerClass', function() {
-    // var ajaxList2 = function(queryURL2) {
-    //         $.ajax({
-    //                 url: queryURL2,
-    //                 method: "GET"
-    //             })
-    //             // using the queryURL from click listener that called it
-    //             .done(function(response) {
-    //                 // Storing an array of results in the results variable
-    //
-    //                 store = response;
-    //                 // Looping over every result item
-    //                 for (var i = 0; i < response.length; i++) {
-    //                     // console.log(response[i].data);
-    //                     $('.drinks').append("<li><a class = 'drinkRecipe'>" + response[i].data.name + "</a></li>");
-    //
-    //                 }
-    //             });
-    //     }
     //stores the name of the drink
     var drinkSearch;
     //pulls the name of the drink from the html and stores it in drinkSearch
     drinkSearch = this.outerText;
     console.log(drinkSearch)
         // Constructing a URL to search cocktail db, the term comes from the clicked html
-    queryURL2 = "http://api.malt.io/v1/public/recipes?detail=true&slugs=american-pale-ale";
+    url = "http://api.malt.io/v1/public/recipes?detail=true&slugs=american-pale-ale";
 
     //    $('.popUp').show();
     // Get the modal
@@ -256,7 +239,7 @@ var callModal = function() {
     var btn = document.getElementById("myBtn");
 
     // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
+    var span = document.getElementsByClassName("close");
 
     // When the user clicks on the button, open the modal
 
