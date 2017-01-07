@@ -1,4 +1,4 @@
-//This variable is mainly for storing a response in a global variable for 
+//This variable is mainly for storing a response in a global variable for
 //debugging, it shouldn't be necessary anywhere in the code
 var store = "";
 //This variable holds the text from the dropdown search bar. It is responsible
@@ -64,7 +64,7 @@ $("#search").on("click", function() {
     // Constructing a URL to search cocktail db
     var queryURL = "http://www.thecocktaildb.com/api/json/v1/6526/search.php?s=" + searchFor;
 
-    //default search, this works for any type of drink (alcoholic or not) 
+    //default search, this works for any type of drink (alcoholic or not)
     //because the url we use above
     hasAlcohol = 'alcoholic';
 
@@ -75,6 +75,133 @@ $("#search").on("click", function() {
     return false;
 });
 
+// Event listener for the beer search bar
+$("#search").on("click", function() {
+
+    //search term is pulled from the search bar
+    var searchFor = $('.form-control').val();
+    // Constructing a URL to search cocktail db
+    var queryURL2 = "http://api.malt.io/v1/public/recipes?detail=true&slugs=" + searchFor;
+    // $.getJSON("http: //api.malt.io/v1/public/recipes?detail=true&slugs=" + searchFor).then(function(response) {
+    //         console.log(response)
+    //     })
+
+    // Performing our AJAX GET request
+    ajaxList2(queryURL2);
+    // $(".drinks").empty();
+    // $(".form-control").empty();
+    console.log(queryURL2);
+    if (dropDownDrink === "American Pale Ale") {
+        $(".drinks").append("<p>" + "Of British origin, this style is now popular worldwide and the use of local ingredients, or imported, produces variances in character from region to region.Generally, expect a good balance of malt and hops.Fruity esters and diacetyl can vary from none to moderate, and bitterness can range from lightly floral to pungent." + "</p>");
+        $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
+    } else if (dropDownDrink === "Dark Beer") {
+        $(".drinks").append("<p>" + "Dark beer is made using roasted malt or roasted barley, hops, water and yeast. Stouts were traditionally the generic term for the strongest or stoutest porters, typically 7% or 8%, produced by a brewery." + "</p>");
+        $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
+    } else if (dropDownDrink === "Hefeweizen") {
+        $(".drinks").append("<p>" + "Another name for Weissbier. 'Hefe' means yeast, and 'Weizen' means wheat, so Hefeweizen is 'yeast wheat.' Germans prefer to call the brew Weissbier, while North Americans prefer the term Hefeweizen. The beer is yeast turbid, because it is unfiltered." + "</p>");
+        $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
+    } else if (dropDownDrink === "Irish Red") {
+        $(".drinks").append("<p>" + "Irish Red Ale is an ale originating in Ireland that has a reddish hue from the inclusion of a small amount of roasted barley. In America, some darker amber ales and ales with artificial coloring are also labeled as red ales." + "</p>");
+        $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
+    } else {
+        $(".drinks").empty();
+        $(".info").empty();
+    }
+    return false;
+});
+
+$(".beerMenu").on("click", function() {
+    // In this case, the "this" keyword refers to the button that was clicked
+    dropDownDrink = this.outerText;
+    // Constructing a URL to search cocktail db
+    queryURL2 = "http://api.malt.io/v1/public/recipes?detail=true&slugs=" + dropDownDrink;
+    console.log(queryURL2);
+    // console.log(queryURL2);
+    // $(".drinks").html("<h1 class=" + dropDownDrink + ">" + "<a href='http://api.malt.io/v1/public/recipes?detail=true&slugs=american-pale-ale'>" + dropDownDrink + "</a>" + "</h1>");
+    if (dropDownDrink === "American Pale Ale") {
+        $(".drinks").html("<h1 class='beerClass'>" + dropDownDrink + "</a>" + "</h1>");
+        $(".drinks").append("<p>" + "American Pale Ale is of British origin, this style is now popular worldwide and the use of local ingredients, or imported, produces variances in character from region to region.Generally, expect a good balance of malt and hops.Fruity esters and diacetyl can vary from none to moderate, and bitterness can range from lightly floral to pungent." + "</p>");
+        $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>");
+    } else if (dropDownDrink === "Dark Beer") {
+        $(".drinks").html("<h1 class='beerClass'>" + dropDownDrink + "</h1>");
+        $(".drinks").append("<p>" + "Dark beer is made using roasted malt or roasted barley, hops, water and yeast. Stouts were traditionally the generic term for the strongest or stoutest porters, typically 7% or 8%, produced by a brewery." + "</p>");
+        $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>");
+    } else if (dropDownDrink === "Hefeweizen") {
+        $(".drinks").html("<h1 class='beerClass'>" + dropDownDrink + "</h1>");
+        $(".drinks").append("<p>" + "Another name for Weissbier. 'Hefe' means yeast, and 'Weizen' means wheat, so Hefeweizen is 'yeast wheat.' Germans prefer to call the brew Weissbier, while North Americans prefer the term Hefeweizen. The beer is yeast turbid, because it is unfiltered." + "</p>");
+        $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>");
+    } else if (dropDownDrink === "Irish Red") {
+        $(".drinks").html("<h1 class='beerClass'>" + dropDownDrink + "</h1>");
+        $(".drinks").append("<p>" + "Irish Red Ale is an ale originating in Ireland that has a reddish hue from the inclusion of a small amount of roasted barley. In America, some darker amber ales and ales with artificial coloring are also labeled as red ales." + "</p>");
+        $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>");
+    } else {
+        $(".drinks").empty();
+        $(".info").empty();
+    }
+    // Performing our AJAX GET request
+    ajaxList2(queryURL2);
+});
+
+// beer modal
+$(".drinks").on("click", '.beerClass', function() {
+    // var ajaxList2 = function(queryURL2) {
+    //         $.ajax({
+    //                 url: queryURL2,
+    //                 method: "GET"
+    //             })
+    //             // using the queryURL from click listener that called it
+    //             .done(function(response) {
+    //                 // Storing an array of results in the results variable
+    //
+    //                 store = response;
+    //                 // Looping over every result item
+    //                 for (var i = 0; i < response.length; i++) {
+    //                     // console.log(response[i].data);
+    //                     $('.drinks').append("<li><a class = 'drinkRecipe'>" + response[i].data.name + "</a></li>");
+    //
+    //                 }
+    //             });
+    //     }
+    //stores the name of the drink
+    var drinkSearch;
+    //pulls the name of the drink from the html and stores it in drinkSearch
+    drinkSearch = this.outerText;
+    console.log(drinkSearch)
+        // Constructing a URL to search cocktail db, the term comes from the clicked html
+    queryURL2 = "http://api.malt.io/v1/public/recipes?detail=true&slugs=american-pale-ale";
+
+    //    $('.popUp').show();
+    // Get the modal
+    var modal = document.getElementById('myModal');
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close");
+
+    // When the user clicks on the button, open the modal
+
+    modal.style.display = "block";
+
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    $(".modal-body").html("<img src='assets/image/" + drinkSearch + ".jpg'>");
+    $(".modal-header").html("<h1>" + drinkSearch + "</h1>");
+    $(".modal-footer").html("How to Make Goes Here");
+    $(".modal-subfooter").html("Ingredients Goes Here");
+});
+
 //Listens for clicks on a specific drink, this is to return ingredients
 //finds the alcoholic or default class to preform a normal search
 $(".drinks").on("click", '.alcoholic', function() {
@@ -83,11 +210,10 @@ $(".drinks").on("click", '.alcoholic', function() {
 
     //calls the popup and empties the old values
     callModal();
-    
+
     //uses the database to search -- the normal query returns all needed info
     storedDrink(number);
 
-    
 });
 
 //Listens for clicks on specific drinks that used the non-alcoholic search
@@ -103,17 +229,17 @@ $(".drinks").on("click", '.nonAlcoholic', function() {
 
     // Constructing a URL to search cocktail db, the term comes from the clicked html
     queryURL = "http://www.thecocktaildb.com/api/json/v1/6526/search.php?s=" + drinkSearch;
-    
+
     //calls the popup and empties the old values
     callModal();
-    
+
     // Performing our AJAX GET request to get the missing info
     ajaxDrink(queryURL);
 
-    
+
 });
 
-var callModal = function(){
+var callModal = function() {
 
     //empty the values from the last clicked on drink
     $(".modal-title").empty();
@@ -132,10 +258,10 @@ var callModal = function(){
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
 
-    // When the user clicks on the button, open the modal 
-    
+    // When the user clicks on the button, open the modal
+
     modal.style.display = "block";
-    
+
 
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
@@ -172,7 +298,26 @@ var ajaxList = function(queryURL) {
                 //we give this a class of hasAlcohol to determine if we need
                 //to use the default search or special case in the future
                 //the data-number is where it appears in the array
-                $('.drinks').append("<li><a class = '"+ hasAlcohol +"' data-number = '"+ i +"'>" + response.drinks[i].strDrink + "</a></li>");
+                $('.drinks').append("<li><a class = '" + hasAlcohol + "' data-number = '" + i + "'>" + response.drinks[i].strDrink + "</a></li>");
+
+            }
+        });
+}
+
+var ajaxList2 = function(queryURL2) {
+    $.ajax({
+            url: queryURL2,
+            method: "GET"
+        })
+        // using the queryURL from click listener that called it
+        .done(function(response) {
+            // Storing an array of results in the results variable
+
+            store = response;
+            // Looping over every result item
+            for (var i = 0; i < response.length; i++) {
+                // console.log(response[i].data);
+                $('.drinks').append("<li><a class = 'drinkRecipe'>" + response[i].data.name + "</a></li>");
 
             }
         });
@@ -183,9 +328,6 @@ var storedDrink = function(number) {
 
     //holds the current drink
     var selectDrink;
-
-    
-        
     //finds the drink clicked on by the data-number property
     selectDrink = currentDrinks.drinks[number];
 
@@ -211,7 +353,7 @@ var storedDrink = function(number) {
         //pulls image from the database
         //console.log('<img src = "' + selectDrink.strDrinkThumb + '"></img>');
         $(".modal-body").html('<img src = "' + selectDrink.strDrinkThumb + '" style="width: 250px; height:250px;"></img>');
-    
+
     }
 
     //While there is an ingredient we continue to loop
@@ -234,7 +376,6 @@ var storedDrink = function(number) {
             //exits the loop
             return;
         }
-
         //returns the current ingredient
         //console.log(eval(currentMeasure) + eval(currentIngredient));
         $(".modal-subfooter").append(eval(currentMeasure) + eval(currentIngredient) + '</br>');
@@ -334,7 +475,7 @@ $(".chatbtn").on("click", function() {
     var chatMessage = $('.chat-form').val();
 
     database.ref().push({
-     chat: chatMessage
+        chat: chatMessage
     });
 
 });
