@@ -58,9 +58,9 @@ $(".nonAlcoholic").on("click", function() {
 
 // Event listener for the search bar
 $("#search").on("click", function() {
-
+    console.log('click');
     //if the search form is blank, do not send a query
-    if ($('.drinkForm').val()==''){
+    if ($('.drinkForm').val() == '') {
         return;
     }
     //search term is pulled from the search bar
@@ -82,36 +82,33 @@ $("#search").on("click", function() {
 
 // Event listener for the beer search bar
 $("#search").on("click", function() {
-
+    console.log('click');
     //search term is pulled from the search bar
-    var searchFor = $('.form-control').val();
+    searchFor = $('.form-control').val();
+    drinkName = searchFor.toLowerCase().replace(/ /g, "-");
+    console.log(drinkName);
     // Constructing a URL to search cocktail db
-    var queryURL2 = "http://api.malt.io/v1/public/recipes?detail=true&slugs=" + searchFor;
-    // $.getJSON("http: //api.malt.io/v1/public/recipes?detail=true&slugs=" + searchFor).then(function(response) {
-    //         console.log(response)
-    //     })
+    var queryURL2 = "http://api.malt.io/v1/public/recipes?detail=true&slugs=" + drinkName;
 
     // Performing our AJAX GET request
     ajaxList2(queryURL2);
-    // $(".drinks").empty();
-    // $(".form-control").empty();
-    console.log(queryURL2);
-    if (dropDownDrink === "American Pale Ale") {
-        $(".drinks").append("<p>" + "Of British origin, this style is now popular worldwide and the use of local ingredients, or imported, produces variances in character from region to region.Generally, expect a good balance of malt and hops.Fruity esters and diacetyl can vary from none to moderate, and bitterness can range from lightly floral to pungent." + "</p>");
-        $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
-    } else if (dropDownDrink === "Dark Beer") {
-        $(".drinks").append("<p>" + "Dark beer is made using roasted malt or roasted barley, hops, water and yeast. Stouts were traditionally the generic term for the strongest or stoutest porters, typically 7% or 8%, produced by a brewery." + "</p>");
-        $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
-    } else if (dropDownDrink === "Hefeweizen") {
-        $(".drinks").append("<p>" + "Another name for Weissbier. 'Hefe' means yeast, and 'Weizen' means wheat, so Hefeweizen is 'yeast wheat.' Germans prefer to call the brew Weissbier, while North Americans prefer the term Hefeweizen. The beer is yeast turbid, because it is unfiltered." + "</p>");
-        $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
-    } else if (dropDownDrink === "Irish Red") {
-        $(".drinks").append("<p>" + "Irish Red Ale is an ale originating in Ireland that has a reddish hue from the inclusion of a small amount of roasted barley. In America, some darker amber ales and ales with artificial coloring are also labeled as red ales." + "</p>");
-        $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
-    } else {
-        $(".drinks").empty();
-        $(".info").empty();
-    }
+    // if (dropDownDrink === "American Pale Ale") {
+    //     $(".drinks").append("<p>" + "Of British origin, this style is now popular worldwide and the use of local ingredients, or imported, produces variances in character from region to region.Generally, expect a good balance of malt and hops.Fruity esters and diacetyl can vary from none to moderate, and bitterness can range from lightly floral to pungent." + "</p>");
+    //     $(".drinks").append()
+    //     $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
+    // } else if (dropDownDrink === "Dark Beer") {
+    //     $(".drinks").append("<p>" + "Dark beer is made using roasted malt or roasted barley, hops, water and yeast. Stouts were traditionally the generic term for the strongest or stoutest porters, typically 7% or 8%, produced by a brewery." + "</p>");
+    //     $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
+    // } else if (dropDownDrink === "Hefeweizen") {
+    //     $(".drinks").append("<p>" + "Another name for Weissbier. 'Hefe' means yeast, and 'Weizen' means wheat, so Hefeweizen is 'yeast wheat.' Germans prefer to call the brew Weissbier, while North Americans prefer the term Hefeweizen. The beer is yeast turbid, because it is unfiltered." + "</p>");
+    //     $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
+    // } else if (dropDownDrink === "Irish Red") {
+    //     $(".drinks").append("<p>" + "Irish Red Ale is an ale originating in Ireland that has a reddish hue from the inclusion of a small amount of roasted barley. In America, some darker amber ales and ales with artificial coloring are also labeled as red ales." + "</p>");
+    //     $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>")
+    // } else {
+    //     $(".drinks").empty();
+    //     $(".info").empty();
+    // }
     return false;
 });
 
@@ -121,23 +118,24 @@ $(".beerMenu").on("click", function() {
     drinkName = dropDownDrink.toLowerCase().replace(/ /g, "-");
     // Constructing a URL to search cocktail db
     queryURL2 = "http://api.malt.io/v1/public/recipes?detail=true&slugs=" + drinkName;
-    console.log(queryURL2);
     if (dropDownDrink === "American Pale Ale") {
         $(".drinks").html("<h1 class='beerClass'>" + dropDownDrink + "</a>" + "</h1>");
         $(".drinks").append("<p>" + "American Pale Ale is of British origin, this style is now popular worldwide and the use of local ingredients, or imported, produces variances in character from region to region.Generally, expect a good balance of malt and hops.Fruity esters and diacetyl can vary from none to moderate, and bitterness can range from lightly floral to pungent." + "</p>");
-        $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>");
+        $(".drinks").append("<h2>Ingredients:</h2>" + "<h3>Spices:</h3>" + "<li>Chinook</li>");
+        $(".drinks").append("<h2>Steps:</h2>");
+        $(".info").html("<img class='beerImg' src='assets/image/" + dropDownDrink + ".jpg'>");
     } else if (dropDownDrink === "Dark Beer") {
         $(".drinks").html("<h1 class='beerClass'>" + dropDownDrink + "</h1>");
         $(".drinks").append("<p>" + "Dark beer is made using roasted malt or roasted barley, hops, water and yeast. Stouts were traditionally the generic term for the strongest or stoutest porters, typically 7% or 8%, produced by a brewery." + "</p>");
-        $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>");
+        $(".info").html("<img class='beerImg' src='assets/image/" + dropDownDrink + ".jpg'>");
     } else if (dropDownDrink === "Hefeweizen") {
         $(".drinks").html("<h1 class='beerClass'>" + dropDownDrink + "</h1>");
         $(".drinks").append("<p>" + "Another name for Weissbier. 'Hefe' means yeast, and 'Weizen' means wheat, so Hefeweizen is 'yeast wheat.' Germans prefer to call the brew Weissbier, while North Americans prefer the term Hefeweizen. The beer is yeast turbid, because it is unfiltered." + "</p>");
-        $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>");
+        $(".info").html("<img class='beerImg' src='assets/image/" + dropDownDrink + ".jpg'>");
     } else if (dropDownDrink === "Irish Red") {
         $(".drinks").html("<h1 class='beerClass'>" + dropDownDrink + "</h1>");
         $(".drinks").append("<p>" + "Irish Red Ale is an ale originating in Ireland that has a reddish hue from the inclusion of a small amount of roasted barley. In America, some darker amber ales and ales with artificial coloring are also labeled as red ales." + "</p>");
-        $(".info").html("<img src='assets/image/" + dropDownDrink + ".jpg'>");
+        $(".info").html("<img class='beerImg' src='assets/image/" + dropDownDrink + ".jpg'>");
     } else {
         $(".drinks").empty();
         $(".info").empty();
@@ -155,12 +153,7 @@ $(".drinks").on("click", '.beerClass', function() {
 
     callModal();
 
-    ajaxDrink2(queryURL2);
-
-    // $(".modal-body").html("<img src='assets/image/" + dropDownDrink + ".jpg'>");
-    // $(".modal-header").html("<h1>" + dropDownDrink + "</h1>");
-    // $(".modal-footer").html("<h2>Ingredients:</h2>");
-    // $(".modal-subfooter").html("<h2>Steps:</h2>");
+    ajaxList2(queryURL2);
 });
 
 //Listens for clicks on a specific drink, this is to return ingredients
@@ -279,27 +272,12 @@ var ajaxList2 = function(queryURL2) {
             for (var i = 0; i < response.length; i++) {
                 // console.log(response[i].data);
                 $('.drinks').append("<li><a class = 'drinkRecipe'>" + response[i].data.name + "</a></li>");
-
-            }
-        });
-}
-
-var ajaxDrink2 = function(queryURL2) {
-    $.ajax({
-            url: queryURL2,
-            method: "GET"
-        })
-        // After the data comes back from the API
-        .done(function(response) {
-            // Storing an array of results in the results variable
-
-            store = response;
-            for (var i = 0; i < response.length; i++) {
                 $(".modal-body").html("<img src='assets/image/" + dropDownDrink + ".jpg'>");
                 // $(".modal-header").html(response[i].data.name);
                 $(".modal-header").html("<h1>" + dropDownDrink + "</h1>");
                 $(".modal-footer").html("<h2>Ingredients:</h2>" + "<h3>Spices:</h3>" + "<li>Chinook</li>");
                 $(".modal-subfooter").html("<h2>Steps:</h2>");
+
             }
         });
 }
@@ -455,32 +433,32 @@ database.ref().on('child_added', function(snapshot) {
 
 $(".chatbtn").on("click", function() {
 
-   enterChat();
+    enterChat();
 
 
 
 });
 
-var enterChat = function(){
+var enterChat = function() {
 
-    if (!($(".chatForm").val() == "")){
-    var chatMessage = $('.chatForm').val();
+    if (!($(".chatForm").val() == "")) {
+        var chatMessage = $('.chatForm').val();
 
-    console.log(chatMessage);
+        console.log(chatMessage);
 
 
-    database.ref().push({
-        chat: chatMessage
-    });
-    $('.chatForm').val('');
+        database.ref().push({
+            chat: chatMessage
+        });
+        $('.chatForm').val('');
     }
 }
 
 document.onkeyup = function(event) {
 
-    if (event.key=="Enter"){
-       enterChat();
-       console.log("hello");
+    if (event.key == "Enter") {
+        enterChat();
+        console.log("hello");
     }
     console.log(event.key);
 }
