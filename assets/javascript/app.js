@@ -27,7 +27,7 @@ $(".mixMenu").on("click", function() {
 
     // Constructing a URL to search cocktail db - the search term is filled by the
     //drop down that was selected
-    queryURL = "httpss://www.thecocktaildb.com/api/json/v1/6526/search.php?s=" + dropDownDrink;
+    queryURL = "https://www.thecocktaildb.com/api/json/v1/6526/search.php?s=" + dropDownDrink;
 
     //uses the defulat query
     hasAlcohol = 'alcoholic';
@@ -287,13 +287,13 @@ var ajaxList2 = function(queryURL2) {
             // $('.drinks').append("<li><a class = 'drinkRecipe'>" + response[i].data.name + "</a></li>");
             // $(".modal-body").html("<img src='assets/image/" + dropDownDrink + ".jpg'>");
             if (dropDownDrink === 'American Pale Ale') {
-                $(".modal-body").html("<iframe width='420' height='315'src='httpss://www.youtube.com/embed/ZCy1cXeHDTQ'>" + "</iframe>");
+                $(".modal-body").html("<iframe width='420' height='315'src='https://www.youtube.com/embed/ZCy1cXeHDTQ'>" + "</iframe>");
             } else if (dropDownDrink === 'Dark Beer') {
-                $(".modal-body").html("<iframe width='420' height='315'src='httpss://www.youtube.com/embed/SrPi4y9lOmc'>" + "</iframe>");
+                $(".modal-body").html("<iframe width='420' height='315'src='https://www.youtube.com/embed/SrPi4y9lOmc'>" + "</iframe>");
             } else if (dropDownDrink === 'Hefeweizen') {
-                $(".modal-body").html("<iframe width='420' height='315'src='httpss://www.youtube.com/embed/EPfCTNiEggc'>" + "</iframe>");
+                $(".modal-body").html("<iframe width='420' height='315'src='https://www.youtube.com/embed/EPfCTNiEggc'>" + "</iframe>");
             } else if (dropDownDrink === 'Irish Red') {
-                $(".modal-body").html("<iframe width='420' height='315'src='httpss://www.youtube.com/embed/sTkwdIq7KSw'>" + "</iframe>");
+                $(".modal-body").html("<iframe width='420' height='315'src='https://www.youtube.com/embed/sTkwdIq7KSw'>" + "</iframe>");
             } else {
                 return false;
             }
@@ -437,7 +437,7 @@ var ajaxDrink = function(queryURL) {
 var config = {
     apiKey: "AIzaSyAWsHg3xzxLY3hT-WfHJJtJL3JmLqW7R8c",
     authDomain: "hoppify-1bdea.firebaseapp.com",
-    databaseURL: "httpss://hoppify-1bdea.firebaseio.com",
+    databaseURL: "https://hoppify-1bdea.firebaseio.com",
     storageBucket: "hoppify-1bdea.appspot.com",
     messagingSenderId: "939603520664"
 };
