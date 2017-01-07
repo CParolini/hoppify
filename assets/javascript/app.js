@@ -18,6 +18,7 @@ var currentDrinks = '';
 $(".mixMenu").on("click", function() {
     // In this case, the "this" keyword refers to the dropdown option that was clicked
     $(".drinks").empty();
+
     //pulls menu name
     dropDownDrink = this.outerText;
     //default image
@@ -61,6 +62,7 @@ $(".search").on("click", function() {
     if ($('.drinkForm').val()==''){
         return;
     }
+
     //search term is pulled from the search bar
     var searchFor = $('.drinkForm').val();
 
@@ -79,7 +81,10 @@ $(".search").on("click", function() {
 });
 
 // Event listener for the beer search bar
-$("#search").on("click", function() {
+$(".search").on("click", function() {
+
+    //resets the variable
+    dropDownDrink = '';
 
     //search term is pulled from the search bar
     var searchFor = $('.form-control').val();
@@ -345,6 +350,10 @@ var storedDrink = function(number) {
     var currentIngredient = '';
     //holds the current measure
     var currentMeasure = '';
+    //sets default value if there is no drink selected, for the search function
+    if (dropDownDrink == ''){
+        dropDownDrink = 'default';
+    }
 
     // returns a picture if there is a picture, or we add a default
     if (selectDrink.strDrinkThumb == '' || selectDrink.strDrinkThumb == null) {
