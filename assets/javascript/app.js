@@ -209,12 +209,12 @@ var storedDrink = function(number) {
     if (selectDrink.strDrinkThumb == '' || selectDrink.strDrinkThumb == null) {
         //default image
         //console.log('<img src = "assets/imgages/' + dropDownDrink + '.jpg"></img>');
-        $(".modal-body").html('<img src = "assets/image/' + dropDownDrink + '.jpg"></img>');
+        $(".modal-body").html('<img src = "assets/image/' + dropDownDrink + '.jpg" height="175" width="285"></img>');
 
     } else {
         //pulls image from the database
         //console.log('<img src = "' + selectDrink.strDrinkThumb + '"></img>');
-        $(".modal-body").html('<img src = "' + selectDrink.strDrinkThumb + '" style="width: 250px; height:250px;"></img>');
+        $(".modal-body").html('<img src = "' + selectDrink.strDrinkThumb + '" style="width: 285px; height:175px;"></img>');
     
     }
 
@@ -273,11 +273,11 @@ var ajaxDrink = function(queryURL) {
             if (response.drinks[0].strDrinkThumb == '' || response.drinks[0].strDrinkThumb == null) {
                 //default image
                 //console.log('<img src = "assets/image/' + dropDownDrink + '.jpg"></img>');
-                $(".modal-body").html('<img src = "assets/image/' + dropDownDrink + '.jpg" style="width: 250px; height:250px;"></img>');
+                $(".modal-body").html('<img src = "assets/image/' + dropDownDrink + '.jpg" style="width: 285px; height:175px;"></img>');
             } else {
                 //pulls image from the database
                 //console.log('<img src = "' + response.drinks[0].strDrinkThumb + '"></img>');
-                $(".modal-body").html('<img src = "' + response.drinks[0].strDrinkThumb + '" style="width: 250px; height:250px;"></img>');
+                $(".modal-body").html('<img src = "' + response.drinks[0].strDrinkThumb + '" style="width: 285px; height:175px;"></img>');
             }
 
             //While there is an ingredient we continue to loop
