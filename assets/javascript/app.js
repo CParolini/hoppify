@@ -19,6 +19,7 @@ var currentDrinks = '';
 $(".mixMenu").on("click", function() {
     // In this case, the "this" keyword refers to the dropdown option that was clicked
     $(".drinks").empty();
+
     //pulls menu name
     dropDownDrink = this.outerText;
     //default image
@@ -57,12 +58,14 @@ $(".nonAlcoholic").on("click", function() {
 });
 
 // Event listener for the search bar
-$("#search").on("click", function() {
-    console.log('click');
+$(".search").on("click", function() {
+    //resets the variable
+    dropDownDrink = '';
     //if the search form is blank, do not send a query
     if ($('.drinkForm').val() == '') {
         return;
     }
+
     //search term is pulled from the search bar
     var searchFor = $('.drinkForm').val();
 
@@ -301,6 +304,10 @@ var storedDrink = function(number) {
     var currentIngredient = '';
     //holds the current measure
     var currentMeasure = '';
+    //sets default value if there is no drink selected, for the search function
+    if (dropDownDrink == '') {
+        dropDownDrink = 'default';
+    }
 
     // returns a picture if there is a picture, or we add a default
     if (selectDrink.strDrinkThumb == '' || selectDrink.strDrinkThumb == null) {
@@ -444,9 +451,6 @@ var enterChat = function() {
     if (!($(".chatForm").val() == "")) {
         var chatMessage = $('.chatForm').val();
 
-        console.log(chatMessage);
-
-
         database.ref().push({
             chat: chatMessage
         });
@@ -458,7 +462,5 @@ document.onkeyup = function(event) {
 
     if (event.key == "Enter") {
         enterChat();
-        console.log("hello");
     }
-    console.log(event.key);
 }
