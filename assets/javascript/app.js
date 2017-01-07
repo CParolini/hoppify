@@ -58,8 +58,12 @@ $(".nonAlcoholic").on("click", function() {
 // Event listener for the search bar
 $("#search").on("click", function() {
 
+    //if the search form is blank, do not send a query
+    if ($('.drinkForm').val()==''){
+        return;
+    }
     //search term is pulled from the search bar
-    var searchFor = $('.form-control').val();
+    var searchFor = $('.drinkForm').val();
 
     // Constructing a URL to search cocktail db
     var queryURL = "http://www.thecocktaildb.com/api/json/v1/6526/search.php?s=" + searchFor;
@@ -321,10 +325,16 @@ firebase.initializeApp(config);
 //storing the database in a variable
 var database = firebase.database();
 
-//chat
+//listens for a change, then adds new text on change
 database.ref().on('child_added', function(snapshot) {
-    $('#chatText').append('<p>' + snapshot.val().chat + '<p>');
+    $('#chatText').append('<p>' + snapshot.val().chat + '<p>');   
 });
+
+// //Trying to autoscroll down -- This does not work yet
+// function updateScroll(){
+//     var element = document.getElementById("chatText");
+//     element.scrollTop = element.scrollHeight;
+// }
 
 $(".chatbtn").on("click", function() {
 
@@ -345,6 +355,7 @@ var enterChat = function(){
     database.ref().push({
         chat: chatMessage
     });
+    $('.chatForm').val('');
     }    
 }
 
